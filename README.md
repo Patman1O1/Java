@@ -1,0 +1,1 @@
+A hub for all my personal projects written in Java. Projects are divided into two categories: libraries and programs. Programs are independent projects that are executable while libraries are meant to be used alongside programs. Not much is here right now since most of my projects have been written in C++, but I plan on writing more Java code when the semester is over.
