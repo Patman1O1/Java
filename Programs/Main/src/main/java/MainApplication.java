@@ -2,6 +2,7 @@ import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,21 +13,26 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 
 import javafx.util.Duration;
+import javafx.scene.control.Button;
 
 
 public class MainApplication extends Application {
 
-    public static void main(String[] args) { MainApplication.launch(args); }
-
     @Override
-    public void start(Stage stage) throws Exception {
-        try {
-            stage.setTitle("Main");
-            this.createAnimation(stage);
-            stage.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public void start(Stage primaryStage) {
+        Button button = new Button("Click Me!");
+        button.setStyle("-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+
+        StackPane root = new StackPane(button);
+        Scene scene = new Scene(root, 400, 300);
+
+        primaryStage.setTitle("Modern JavaFX Application");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     public void createAnimation(Stage stage) {
@@ -58,5 +64,9 @@ public class MainApplication extends Application {
         Scene scene = new Scene(borderPane, 700,700);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void createMenu() {
+
     }
 }
