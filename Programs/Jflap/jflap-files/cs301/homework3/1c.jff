@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>&#13;
-	<type>fa</type>&#13;
-	<automaton/>&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+    <type>grammar</type>
+    <production>
+        <left>S</left>
+        <right>AB</right>
+    </production>
+    <production>
+        <left>A</left>
+        <right>0AC0</right>
+    </production>
+    <production>
+        <left>A</left>
+        <right>1AC1</right>
+    </production>
+    <production>
+        <left>A</left>
+        <right>#D</right>
+    </production>
+    <production>
+        <left>B</left>
+        <right>B0</right>
+    </production>
+    <production>
+        <left>B</left>
+        <right>B1</right>
+    </production>
+    <production>
+        <left>B</left>
+        <right/>
+    </production>
+    <production>
+        <left>C</left>
+        <right/>
+    </production>
+    <production>
+        <left>D</left>
+        <right>0D</right>
+    </production>
+    <production>
+        <left>D</left>
+        <right>1D</right>
+    </production>
+    <production>
+        <left>D</left>
+        <right/>
+    </production>
 </structure>

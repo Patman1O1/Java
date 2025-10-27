@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>&#13;
-	<type>fa</type>&#13;
-	<automaton/>&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--Created with JFLAP 7.1.-->
+<structure>
+	<type>grammar</type>
+	<grammar>
+		<production>
+			<left>S</left>
+			<right>OB</right>
+		</production>
+		<production>
+			<left>O</left>
+			<right>0O</right>
+		</production>
+		<production>
+			<left>O</left>
+			<right>0P</right>
+		</production>
+		<production>
+			<left>P</left>
+			<right>0P1</right>
+		</production>
+		<production>
+			<left>P</left>
+			<right/>
+		</production>
+		<production>
+			<left>B</left>
+			<right>2B3</right>
+		</production>
+		<production>
+			<left>B</left>
+			<right>3</right>
+		</production>
+	</grammar>
 </structure>

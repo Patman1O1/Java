@@ -1,5 +1,8 @@
 import javafx.application.Application;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -20,16 +23,29 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Button button = new Button("Click Me!");
-        button.setStyle("-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        BorderPane borderPane = new BorderPane();
+        Scene scene = new Scene(borderPane);
 
-        StackPane root = new StackPane(button);
-        Scene scene = new Scene(root, 400, 300);
-
-        primaryStage.setTitle("Modern JavaFX Application");
         primaryStage.setScene(scene);
+
+        // Sets the dimensions of the window
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(900);
+
+        // Needed to show the application (otherwise no window will be launched)
         primaryStage.show();
     }
+
+    public Button createButton() {
+        Button button = new Button();
+        button.setOnAction(event -> {
+            assert(true);
+        });
+
+        return button;
+    }
+
+    public MediaPlayer
 
     public static void main(String[] args) {
         launch(args);
@@ -66,7 +82,5 @@ public class MainApplication extends Application {
         stage.show();
     }
 
-    public void createMenu() {
 
-    }
 }
