@@ -10,10 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
+    private static Category category;
 
     /* --------------------------------------------------SetUp------------------------------------------------------- */
-    //@BeforeEach
-    //protected void setUp() { kenoLogic = new KenoLogic(); }
+    @BeforeEach
+    protected void setUp() { CategoryTests.category = new Category(); }
 
     /* ---------------------------------------------Constructor Tests------------------------------------------------ */
 
