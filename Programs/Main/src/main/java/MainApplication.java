@@ -45,7 +45,6 @@ public class MainApplication extends Application {
         return button;
     }
 
-    public MediaPlayer
 
     public static void main(String[] args) {
         launch(args);

@@ -13,6 +13,12 @@ public class Item {
         this.totalPoints = 1.0;
     }
 
+    public Item(String name, double gradePercent) {
+        this.name = name;
+        this.setPointsEarned(gradePercent);
+        this.totalPoints = 100.0;
+    }
+
     public Item(String name, double pointsEarned, double totalPoints) throws IllegalArgumentException {
         this.name = name;
         this.setPointsEarned(pointsEarned);

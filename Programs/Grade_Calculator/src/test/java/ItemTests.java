@@ -27,7 +27,23 @@ public class ItemTests {
     }
 
     @Test
-    protected void constructors__parameterConstructor__validArguments() {
+    protected void constructors__twoParameterConstructor__validArguments() {
+        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0));
+
+        assertEquals("Item", ItemTests.item.name);
+        assertEquals(98.0, ItemTests.item.getPointsEarned(), ItemTests.EPSILON);
+        assertEquals(100.0, ItemTests.item.getTotalPoints(), ItemTests.EPSILON);
+        assertEquals(0.98, ItemTests.item.grade(), ItemTests.EPSILON);
+        assertEquals(98.0, ItemTests.item.gradeAsPercent(), ItemTests.EPSILON);
+    }
+
+    @Test
+    protected void constructors__twoParameterConstructor__invalidArguments() {
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", -1.0));
+    }
+
+    @Test
+    protected void constructors__threeParameterConstructor__validArguments() {
         assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
 
         assertEquals("Item", ItemTests.item.name);
@@ -38,7 +54,7 @@ public class ItemTests {
     }
 
     @Test
-    protected void constructors__parameterConstructor__invalidArguments() {
+    protected void constructors__threeParameterConstructor__invalidArguments() {
         assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", -1.0, 100.0));
         assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", 0.0, -1.0));
         assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", 0.0, 0.0));
