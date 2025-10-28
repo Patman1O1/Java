@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
-    private static Item item;
-
     private static final double EPSILON = 1.0e-10;
+
+    private static Item item;
 
     /* --------------------------------------------------SetUp------------------------------------------------------- */
     @BeforeEach
@@ -17,7 +17,7 @@ public class ItemTests {
     protected void constructors__defaultConstructor() {
         ItemTests.item = new Item();
 
-        assertEquals("", ItemTests.item.name);
+        assertEquals("", ItemTests.item.getName());
         assertEquals(0.0, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
@@ -25,7 +25,7 @@ public class ItemTests {
     protected void constructors__twoParameterConstructor__validArguments() {
         assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
 
-        assertEquals("Item", ItemTests.item.name);
+        assertEquals("Item", ItemTests.item.getName());
         assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
@@ -38,7 +38,7 @@ public class ItemTests {
     protected void constructors__threeParameterConstructor__validArguments() {
         assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
 
-        assertEquals("Item", ItemTests.item.name);
+        assertEquals("Item", ItemTests.item.getName());
         assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
@@ -50,6 +50,18 @@ public class ItemTests {
     }
 
     /* -----------------------------------------------Setter Tests--------------------------------------------------- */
+    @Test
+    protected void setters__setName__nonNull() {
+        ItemTests.item.setName("Item");
+        assertEquals("Item", ItemTests.item.getName());
+    }
+
+    @Test
+    protected void setters__setName__null() {
+        ItemTests.item.setName(null);
+        assertEquals("", ItemTests.item.getName());
+    }
+
     @Test
     protected void setters__setGrade__singleParameter__validArguments() {
         assertDoesNotThrow(() -> ItemTests.item.setGrade(1.0));

@@ -2,27 +2,23 @@ public class Item {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
 
-    public String name;
+    private String name;
 
     private double grade;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    public Item() {
-        this.name = "";
-        this.grade = 0.0;
-    }
+    public Item() { this.name = ""; this.grade = 0.0; }
 
-    public Item(String name, double grade) throws IllegalArgumentException {
-        this.name = name;
-        this.setGrade(grade);
-    }
+    public Item(String name, double grade) throws IllegalArgumentException { this.setName(name); this.setGrade(grade); }
 
     public Item(String name, double pointsEarned, double totalPoints) throws IllegalArgumentException {
-        this.name = name;
+        this.setName(name);
         this.setGrade(pointsEarned, totalPoints);
     }
 
     /* -------------------------------------------------Setters------------------------------------------------------ */
+    public void setName(String name) { this.name = name != null ? name : ""; }
+
     public void setGrade(double grade) throws IllegalArgumentException {
         if (grade < 0.0) {
             throw new IllegalArgumentException("\"grade\" cannot be negative");
@@ -44,6 +40,8 @@ public class Item {
     }
 
     /* -------------------------------------------------Getters------------------------------------------------------ */
+    public String getName() { return this.name; }
+
     public double getGrade() { return this.grade; }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */

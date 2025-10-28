@@ -4,7 +4,7 @@ public class Category {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
 
-    public String name;
+    private String name;
 
     private double weight, grade;
 
@@ -24,7 +24,7 @@ public class Category {
     }
 
     public Category(String name) {
-        this.name = name;
+        this.setName(name);
         this.weight = this.grade = 0.0;
         this.items = new HashMap<>();
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
@@ -32,7 +32,7 @@ public class Category {
     }
 
     public Category(String name, double weight) throws IllegalArgumentException {
-        this.name = name;
+        this.setName(name);
         this.setWeight(weight);
         this.grade = 0.0;
         this.items = new HashMap<>();
@@ -40,7 +40,37 @@ public class Category {
         this.drops = new Stack<>();
     }
 
+    public Category(String name, double weight, Iterable<Item> items) throws IllegalArgumentException, NullPointerException {
+        this.setName(name);
+        this.setWeight(weight);
+
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.drops = new Stack<>();
+        this.items = new HashMap<>();
+        this.setItems(items);
+    }
+
+    public Category(String name, double weight, Iterable<Item> items, int numDrops) throws IllegalArgumentException, NullPointerException {
+        if (numDrops < 0) {
+            throw new IllegalArgumentException("\"numDrops\" cannot be negative");
+        }
+
+        this.setName(name);
+        this.setWeight(weight);
+
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.drops = new Stack<>();
+        this.items = new HashMap<>();
+        this.setItems(items);
+
+        for (int i = 0; i < numDrops; ++i) {
+            this.drop();
+        }
+    }
+
     /* -------------------------------------------------Setters------------------------------------------------------ */
+    public void setName(String name) { this.name = name != null ? name : ""; }
+
     public void setWeight(double weight) throws IllegalArgumentException {
         if (weight < 0.0) {
             throw new IllegalArgumentException("\"weight\" cannot be negative");
@@ -48,22 +78,21 @@ public class Category {
         this.weight = weight;
     }
 
-    public void setItem(Item item) throws NullPointerException, IllegalAccessError {
-        if (item == null) {
-            throw new NullPointerException("\"item\" cannot be null");
+    public void setItems(Iterable<Item> items) throws NullPointerException {
+        if (items == null) {
+            throw new NullPointerException("\"items\" cannot be null");
         }
 
-        if (!this.items.containsKey(item.name)) {
-            throw new IllegalAccessError("could not set \"item\" because it was not found");
+        this.items.clear();
+        this.worstItems.clear();
+        for (Item item : items) {
+            this.addItem(item);
         }
-
-        Item oldItem = this.items.get(item.name);
-        this.worstItems.remove(oldItem);
-        this.items.replace(item.name, oldItem, item);
-        this.worstItems.add(item);
     }
 
     /* -------------------------------------------------Getters------------------------------------------------------ */
+    public String getName() { return this.name; }
+
     public double getWeight() { return this.weight; }
 
     public Item getItem(String itemName) {
@@ -75,6 +104,8 @@ public class Category {
     }
 
     public Item getWorstItem() { return this.worstItems.peek(); }
+
+    public double getGrade() { return this.grade / this.items.size(); }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
     protected static boolean doubleCompare(double lhs, double rhs) { return Math.abs(lhs - rhs) < Category.EPSILON; }
@@ -88,7 +119,7 @@ public class Category {
             return false;
         }
 
-        return this.name.equals(other.name) && Category.doubleCompare(this.grade, other.grade);
+        return this.name.equals(other.name) && Category.doubleCompare(this.getGrade(), other.getGrade());
     }
 
     public void addItem(Item item) throws NullPointerException {
@@ -96,7 +127,7 @@ public class Category {
             throw new NullPointerException("\"item\" cannot be null");
         }
 
-        this.items.put(item.name, item);
+        this.items.put(item.getName(), item);
         this.worstItems.add(item);
         this.grade += item.getGrade();
     }
@@ -108,7 +139,22 @@ public class Category {
 
         this.grade -= item.getGrade();
         this.worstItems.remove(item);
-        return this.items.remove(item.name);
+        return this.items.remove(item.getName());
+    }
+
+    public void updateItem(Item item) throws NullPointerException, IllegalAccessError {
+        if (item == null) {
+            throw new NullPointerException("\"item\" cannot be null");
+        }
+
+        if (!this.items.containsKey(item.getName())) {
+            throw new IllegalAccessError("could not update \"item\" because it was not found");
+        }
+
+        Item oldItem = this.items.get(item.getName());
+        this.worstItems.remove(oldItem);
+        this.items.replace(item.getName(), oldItem, item);
+        this.worstItems.add(item);
     }
 
     public boolean containsItem(String itemName) {
@@ -129,7 +175,8 @@ public class Category {
 
         this.grade -= worstItem.getGrade();
         this.drops.push(worstItem);
-        this.items.remove(worstItem.name);
+        this.items.remove(worstItem.getName());
+        this.worstItems.remove(worstItem);
     }
 
     public Item undrop() {
@@ -140,7 +187,8 @@ public class Category {
         Item drop = this.drops.peek();
 
         this.grade += drop.getGrade();
-        this.items.put(drop.name, drop);
+        this.items.put(drop.getName(), drop);
+        this.worstItems.add(drop);
         return this.drops.pop();
     }
 
