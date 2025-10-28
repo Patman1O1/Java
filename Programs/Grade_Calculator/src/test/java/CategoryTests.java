@@ -10,7 +10,7 @@ public class CategoryTests {
 
     private static Category category;
 
-    private static final Item[] lectureItems = {
+    public static final Item[] lectureItems = {
             new Item("Lecture 1.2", 2.25, 4.00),
             new Item("Lecture 2.2", 2.75, 3.00),
             new Item("Lecture 3.1", 1.50, 3.00),
@@ -41,7 +41,7 @@ public class CategoryTests {
             new Item("Lecture 15.2", 1.50, 3.00)
     };
 
-    private static final Item[] groupProblemItems = {
+    public static final Item[] groupProblemItems = {
             new Item("Group Problems 1", 2.00, 4.00),
             new Item("Group Problems 2", 2.00, 3.00),
             new Item("Group Problems 3", 3.00, 5.00),
@@ -59,7 +59,7 @@ public class CategoryTests {
             new Item("Group Problems 15", 2.00, 4.00)
     };
 
-    private static final Item[] onlineHWItems = {
+    public static final Item[] onlineHWItems = {
             new Item("Online HW 1", 0.0),
             new Item("Online HW 2", 0.95),
             new Item("Online HW 3", 0.90),
@@ -77,7 +77,7 @@ public class CategoryTests {
             new Item("Online HW 15", 0.0),
     };
 
-    private static final Item[] writtenHWItems = {
+    public static final Item[] writtenHWItems = {
             new Item("Written HW 0", 14.0, 20.0),
             new Item("Written HW 1", 17.0, 20.0),
             new Item("Written HW 2", 18.0, 20.0),
@@ -95,7 +95,7 @@ public class CategoryTests {
             new Item("Written HW 14", 18.0, 20.0)
     };
 
-    private static final Item[] quizItems = {
+    public static final Item[] quizItems = {
             new Item("Quiz 1", 6.0, 20.0),
             new Item("Quiz 2", 13.0, 20.0),
             new Item("Quiz 3", 14.0, 20.0),
@@ -110,7 +110,7 @@ public class CategoryTests {
             new Item("Quiz 12", 4.0, 20.0)
     };
 
-    private static final Item[] prelabItems = {
+    public static final Item[] prelabItems = {
             new Item("Prelab 1", 1.0),
             new Item("Prelab 2", 1.5, 4.0),
             new Item("Prelab 3", 3.25, 4.0),
@@ -123,7 +123,7 @@ public class CategoryTests {
             new Item("Prelab 10", 1.0)
     };
 
-    private static final Item[] labItems = {
+    public static final Item[] labItems = {
             new Item("Lab 1", 14.25, 16.0),
             new Item("Lab 2", 0.0, 16.0),
             new Item("Lab 3", 14.95, 16.0),
@@ -136,7 +136,7 @@ public class CategoryTests {
             new Item("Lab 10", 0.0, 16.0)
     };
 
-    private static final Item[] examItems = {
+    public static final Item[] examItems = {
             new Item("Exam 1", 61.0, 100.0),
             new Item("Exam 2", 54.5, 100.0),
             new Item("Exam 3", 0.0, 100.0)

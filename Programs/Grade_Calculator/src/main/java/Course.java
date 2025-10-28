@@ -1,14 +1,160 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Course {
     /* --------------------------------------------------Fields------------------------------------------------------ */
+    private static final double EPSILON = 1e-10;
 
+    private String name;
+
+    private final Map<String, Category> categories;
+
+    private final Map<String, Category> emptyCategories;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
+    public Course() { this.name = ""; this.categories = new HashMap<>(); this.emptyCategories = new HashMap<>(); }
+
+    public Course(String name) {
+        this.setName(name);
+        this.categories = new HashMap<>();
+        this.emptyCategories = new HashMap<>();
+    }
+
+    public Course(String name, Iterable<Category> categories) throws NullPointerException {
+        this.setName(name);
+        this.categories = new HashMap<>();
+        this.emptyCategories = new HashMap<>();
+        this.setCategories(categories);
+    }
 
     /* -------------------------------------------------Setters------------------------------------------------------ */
+    public void setName(String name) { this.name = name != null ? name : ""; }
+
+    public void setCategories(Iterable<Category> categories) throws NullPointerException {
+        if (categories == null) {
+            throw new NullPointerException("\"categories\" cannot be null");
+        }
+
+        this.categories.clear();
+        this.emptyCategories.clear();
+        for (Category category : categories) {
+            this.addCategory(category);
+        }
+    }
+
     /* -------------------------------------------------Getters------------------------------------------------------ */
+    public String getName() { return this.name; }
+
+    public Category getCategory(String categoryName) {
+        if (categoryName == null) {
+            return null;
+        }
+
+        return this.categories.get(categoryName);
+    }
+
     /* -------------------------------------------------Methods------------------------------------------------------ */
+    @Override
+    public String toString() { return this.name; }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Course other)) {
+            return false;
+        }
+
+        return this.name.equals(other.name) &&
+                this.categories.equals(other.categories) &&
+                this.emptyCategories.equals(other.emptyCategories);
+    }
+
+    public void addCategory(Category category) throws NullPointerException {
+        if (category == null) {
+            throw new NullPointerException("\"category\" cannot be null");
+        }
+
+        if (category.countItems() == 0) {
+            this.emptyCategories.put(category.getName(), category);
+        }
+
+        this.categories.put(category.getName(), category);
+    }
+
+    public boolean removeCategory(Category category) {
+        if (category == null || this.categories.isEmpty() || !this.categories.containsKey(category.getName())) {
+            return false;
+        }
+
+        String categoryName = category.getName();
+        this.emptyCategories.remove(categoryName);
+        return this.categories.remove(categoryName) != null;
+    }
+
+    public boolean removeCategory(String categoryName) {
+        if (categoryName == null || this.categories.isEmpty() || !this.categories.containsKey(categoryName)) {
+            return false;
+        }
+
+        this.emptyCategories.remove(categoryName);
+        return this.categories.remove(categoryName) != null;
+    }
+
+    public boolean containsCategory(Category category) {
+        if (category == null) {
+            return false;
+        }
+
+        String categoryName = category.getName();
+        return this.categories.containsKey(categoryName) || this.emptyCategories.containsKey(categoryName);
+    }
+
+    public void updateCategory(Category category) throws NullPointerException {
+        if (category == null) {
+            throw new NullPointerException("\"category\" cannot be null");
+        }
+
+        String categoryName = category.getName();
+
+        this.categories.remove(categoryName);
+
+        // If the category that was previously empty now contains items...
+        if (this.emptyCategories.containsKey(categoryName) && category.countItems() > 0) {
+            // Remove the category from the empty categories map
+            this.emptyCategories.remove(categoryName);
+        } else if (!this.emptyCategories.containsKey(categoryName) && category.countItems() == 0) {
+            // Otherwise, if the category previously had items is now empty, then add the category to the empty
+            // categories map
+            this.emptyCategories.put(categoryName, category);
+        }
+
+        // Add the updated category to the categories map
+        this.categories.put(categoryName, category);
+    }
+
+    public int countCategories() { return this.categories.size(); }
+
+    public int countEmptyCategories() { return this.emptyCategories.size(); }
+
+    public double calculateGrade() {
+        if (this.categories.isEmpty()) {
+            return 0.0;
+        }
+
+        // Create a local variable to store the sum of every category grade multiplied by its weight
+        double weightedGradeSum = 0.0;
+
+        // For each category in the course...
+        for (Category category : this.categories.values()) {
+            // If the category does not contain any items...
+            if (this.emptyCategories.containsValue(category)) {
+                continue;
+            }
+
+            // Sum the weighted grade of the current item with weighted grade sum
+            weightedGradeSum += category.getGrade() * category.getWeight();
+        }
+
+        return weightedGradeSum / (this.categories.size() - this.emptyCategories.size());
+    }
 
 }
