@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
-
 
 public class ItemTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
@@ -20,21 +18,15 @@ public class ItemTests {
         ItemTests.item = new Item();
 
         assertEquals("", ItemTests.item.name);
-        assertEquals(0.0, ItemTests.item.getPointsEarned(), ItemTests.EPSILON);
-        assertEquals(1.0, ItemTests.item.getTotalPoints(), ItemTests.EPSILON);
-        assertEquals(0.0, ItemTests.item.grade(), ItemTests.EPSILON);
-        assertEquals(0.0, ItemTests.item.gradeAsPercent(), ItemTests.EPSILON);
+        assertEquals(0.0, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
     @Test
     protected void constructors__twoParameterConstructor__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0));
+        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
 
         assertEquals("Item", ItemTests.item.name);
-        assertEquals(98.0, ItemTests.item.getPointsEarned(), ItemTests.EPSILON);
-        assertEquals(100.0, ItemTests.item.getTotalPoints(), ItemTests.EPSILON);
-        assertEquals(0.98, ItemTests.item.grade(), ItemTests.EPSILON);
-        assertEquals(98.0, ItemTests.item.gradeAsPercent(), ItemTests.EPSILON);
+        assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
     @Test
@@ -47,10 +39,7 @@ public class ItemTests {
         assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
 
         assertEquals("Item", ItemTests.item.name);
-        assertEquals(98.0, ItemTests.item.getPointsEarned(), ItemTests.EPSILON);
-        assertEquals(100.0, ItemTests.item.getTotalPoints(), ItemTests.EPSILON);
-        assertEquals(0.98, ItemTests.item.grade(), ItemTests.EPSILON);
-        assertEquals(98.0, ItemTests.item.gradeAsPercent(), ItemTests.EPSILON);
+        assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
     @Test
@@ -62,40 +51,33 @@ public class ItemTests {
 
     /* -----------------------------------------------Setter Tests--------------------------------------------------- */
     @Test
-    protected void setters__setPointsEarned__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item.setPointsEarned(100.0));
-        assertDoesNotThrow(() -> ItemTests.item.setPointsEarned(0.0));
+    protected void setters__setGrade__singleParameter__validArguments() {
+        assertDoesNotThrow(() -> ItemTests.item.setGrade(1.0));
+        assertDoesNotThrow(() -> ItemTests.item.setGrade(0.0));
     }
 
     @Test
-    protected void setters__setPointsEarned__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setTotalPoints(0.0));
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setTotalPoints(-1.0));
+    protected void setters__setGrade__singleParameter__invalidArgument() {
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(-1.0));
     }
 
     @Test
-    protected void setters__setTotalPoints__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item.setTotalPoints(100.0));
-        assertDoesNotThrow(() -> ItemTests.item.setTotalPoints(1.0));
+    protected void setters__setGrade__twoParameters__validArguments() {
+        assertDoesNotThrow(() -> ItemTests.item.setGrade(90.93, 100.0));
+        assertDoesNotThrow(() -> ItemTests.item.setGrade(0.44444, 1.0));
     }
 
     @Test
-    protected void setters__setTotalPoints__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setTotalPoints(0.0));
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setTotalPoints(-1.0));
+    protected void setters__setGrade__twoParameters__invalidArguments() {
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(0.0, 0.0));
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(0.0, -1.0));
     }
 
     /* -----------------------------------------------Getter Tests--------------------------------------------------- */
     @Test
-    protected void getters__getPointsEarned() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 100.0, 100.0));
-        assertEquals(100.0, ItemTests.item.getPointsEarned());
-    }
-
-    @Test
-    protected void getters__getTotalPoints() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 100.0, 100.0));
-        assertEquals(100.0, ItemTests.item.getTotalPoints());
+    protected void getters__getGrade() {
+        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 0.99994));
+        assertEquals(0.99994, ItemTests.item.getGrade(), ItemTests.EPSILON);
     }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
@@ -122,30 +104,27 @@ public class ItemTests {
     }
 
     @Test
-    protected void methods__compare__trueCase() {
+    protected void methods__compareTo__equals() {
         final Item[] items = new Item[2];
         assertDoesNotThrow(() -> items[0] = new Item("Item1", 100.0, 100.0));
         assertDoesNotThrow(() -> items[1] = new Item("Item2", 100.0, 100.0));
-        assertTrue(items[0].compare(items[1]));
+        assertEquals(0, items[0].compareTo(items[1]));
     }
 
     @Test
-    protected void methods__compare__falseCase() {
+    protected void methods__compareTo__greater() {
         final Item[] items = new Item[2];
-        assertDoesNotThrow(() -> items[0] = new Item("Item1", 99.0, 100.0));
+        assertDoesNotThrow(() -> items[0] = new Item("Item1", 100.0, 100.0));
+        assertDoesNotThrow(() -> items[1] = new Item("Item2", 30.5, 100.0));
+        assertEquals(1, items[0].compareTo(items[1]));
+    }
+
+    @Test
+    protected void methods__compareTo__less() {
+        final Item[] items = new Item[2];
+        assertDoesNotThrow(() -> items[0] = new Item("Item1", 30.5, 100.0));
         assertDoesNotThrow(() -> items[1] = new Item("Item2", 100.0, 100.0));
-        assertFalse(items[0].compare(items[1]));
+        assertEquals(-1, items[0].compareTo(items[1]));
     }
 
-    @Test
-    protected void methods__grade() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.33333, 100.0));
-        assertEquals(0.9833333, ItemTests.item.grade(), ItemTests.EPSILON);
-    }
-
-    @Test
-    protected void methods__gradeAsPercent() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.33333, 100.0));
-        assertEquals(98.33333, ItemTests.item.gradeAsPercent(), ItemTests.EPSILON);
-    }
 }

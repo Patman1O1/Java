@@ -1,5 +1,4 @@
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class Category {
     /* --------------------------------------------------Fields------------------------------------------------------ */
@@ -7,33 +6,38 @@ public class Category {
 
     public String name;
 
-    private double weight;
+    private double weight, grade;
 
-    private double pointsEarned, totalPoints;
+    private final Map<String, Item> items;
 
-    private final Map<String, Item> items, drops;
+    private final Stack<Item> drops;
+
+    private final Queue<Item> worstItems;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
     public Category() {
         this.name = "";
-        this.weight = this.pointsEarned = this.totalPoints = 0.0;
+        this.weight = this.grade = 0.0;
         this.items = new HashMap<>();
-        this.drops = new HashMap<>();
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.drops = new Stack<>();
     }
 
     public Category(String name) {
         this.name = name;
-        this.weight = this.pointsEarned = this.totalPoints = 0.0;
+        this.weight = this.grade = 0.0;
         this.items = new HashMap<>();
-        this.drops = new HashMap<>();
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.drops = new Stack<>();
     }
 
     public Category(String name, double weight) throws IllegalArgumentException {
         this.name = name;
         this.setWeight(weight);
-        this.pointsEarned = this.totalPoints = 0.0;
+        this.grade = 0.0;
         this.items = new HashMap<>();
-        this.drops = new HashMap<>();
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.drops = new Stack<>();
     }
 
     /* -------------------------------------------------Setters------------------------------------------------------ */
@@ -53,7 +57,10 @@ public class Category {
             throw new IllegalAccessError("could not set \"item\" because it was not found");
         }
 
-        this.items.replace(item.name, this.items.get(item.name), item);
+        Item oldItem = this.items.get(item.name);
+        this.worstItems.remove(oldItem);
+        this.items.replace(item.name, oldItem, item);
+        this.worstItems.add(item);
     }
 
     /* -------------------------------------------------Getters------------------------------------------------------ */
@@ -67,6 +74,8 @@ public class Category {
         return this.items.get(itemName);
     }
 
+    public Item getWorstItem() { return this.worstItems.peek(); }
+
     /* -------------------------------------------------Methods------------------------------------------------------ */
     protected static boolean doubleCompare(double lhs, double rhs) { return Math.abs(lhs - rhs) < Category.EPSILON; }
 
@@ -79,7 +88,7 @@ public class Category {
             return false;
         }
 
-        return this.name.equals(other.name) && Category.doubleCompare(this.grade(), other.grade());
+        return this.name.equals(other.name) && Category.doubleCompare(this.grade, other.grade);
     }
 
     public void addItem(Item item) throws NullPointerException {
@@ -88,8 +97,8 @@ public class Category {
         }
 
         this.items.put(item.name, item);
-        this.pointsEarned += item.getPointsEarned();
-        this.totalPoints += item.getTotalPoints();
+        this.worstItems.add(item);
+        this.grade += item.getGrade();
     }
 
     public Item removeItem(Item item) {
@@ -97,9 +106,8 @@ public class Category {
             return null;
         }
 
-        this.pointsEarned -= item.getPointsEarned();
-        this.totalPoints -= item.getTotalPoints();
-
+        this.grade -= item.getGrade();
+        this.worstItems.remove(item);
         return this.items.remove(item.name);
     }
 
@@ -112,55 +120,30 @@ public class Category {
 
     public int countItems() { return this.items.size(); }
 
-    public void drop(Item item) throws NullPointerException, IllegalArgumentException {
-        if (item == null) {
-            throw new NullPointerException("\"item\" cannot be null");
-        }
-
-        if (!this.items.containsKey(item.name) && !this.drops.containsKey(item.name)) {
-            throw new IllegalArgumentException("\"item\" must be added as an item before it can be dropped");
-        }
-
-        if (this.drops.containsKey(item.name)) {
-            Item oldDrop = this.drops.get(item.name);
-            this.pointsEarned += Math.abs(oldDrop.getPointsEarned() - item.getPointsEarned());
-            this.totalPoints += Math.abs(oldDrop.getTotalPoints() - item.getTotalPoints());
-
-            this.drops.replace(item.name, oldDrop, item);
+    public void drop() {
+        if (this.worstItems.isEmpty()) {
             return;
         }
 
-        this.pointsEarned -= item.getPointsEarned();
-        this.totalPoints -= item.getTotalPoints();
-        this.drops.put(item.name, item);
-        this.items.remove(item.name);
+        Item worstItem = this.worstItems.peek();
+
+        this.grade -= worstItem.getGrade();
+        this.drops.push(worstItem);
+        this.items.remove(worstItem.name);
     }
 
-    public Item undrop(Item drop) {
-        if (drop == null || !this.drops.containsKey(drop.name)) {
+    public Item undrop() {
+        if (this.drops.empty()) {
             return null;
         }
-        this.pointsEarned += drop.getPointsEarned();
-        this.totalPoints += drop.getTotalPoints();
 
+        Item drop = this.drops.peek();
+
+        this.grade += drop.getGrade();
         this.items.put(drop.name, drop);
-        return this.drops.remove(drop.name);
+        return this.drops.pop();
     }
 
     public int countDrops() { return this.drops.size(); }
 
-    public boolean isDropped(String dropName) {
-        if (dropName == null || this.drops.isEmpty()) {
-            return false;
-        }
-        return this.drops.containsKey(dropName);
-    }
-
-    public double grade() {
-        return Category.doubleCompare(this.totalPoints, 0.0) ? 0.0 :  this.pointsEarned / this.totalPoints;
-    }
-
-    public double gradeAsPercent() {
-        return Category.doubleCompare(this.totalPoints, 0.0) ? 0.0 : this.pointsEarned / this.totalPoints * 100;
-    }
 }

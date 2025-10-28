@@ -1,18 +1,146 @@
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class CategoryTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
+    private static final double EPSILON = 1.0e-10;
+
     private static Category category;
 
-    private static final double EPSILON = 1e-10;
+    private static final Item[] lectureItems = {
+            new Item("Lecture 1.2", 2.25, 4.00),
+            new Item("Lecture 2.2", 2.75, 3.00),
+            new Item("Lecture 3.1", 1.50, 3.00),
+            new Item("Lecture 3.2", 2.25, 3.00),
+            new Item("Lecture 4.1", 2.50, 4.00),
+            new Item("Lecture 4.2", 2.50, 3.00),
+            new Item("Lecture 5.1", 0.00, 3.00),
+            new Item("Lecture 5.2", 3.75, 4.00),
+            new Item("Lecture 6.1", 1.00, 3.00),
+            new Item("Lecture 6.2", 3.00, 4.00),
+            new Item("Lecture 7.1", 3.00, 4.00),
+            new Item("Lecture 7.2", 1.75, 3.00),
+            new Item("Lecture 8.1", 2.50, 3.00),
+            new Item("Lecture 8.2", 3.75, 4.00),
+            new Item("Lecture 9.1", 0.75, 3.00),
+            new Item("Lecture 9.2", 3.75, 4.00),
+            new Item("Lecture 10.1", 2.25, 3.00),
+            new Item("Lecture 10.2", 2.75, 4.00),
+            new Item("Lecture 11.1", 2.25, 3.00),
+            new Item("Lecture 11.2", 1.75, 3.00),
+            new Item("Lecture 12.1", 3.00, 4.00),
+            new Item("Lecture 12.2", 1.75, 3.00),
+            new Item("Lecture 13.1", 2.50, 3.00),
+            new Item("Lecture 13.2", 3.50, 4.00),
+            new Item("Lecture 14.1", 2.50, 3.00),
+            new Item("Lecture 14.2", 1.0, 1.0),
+            new Item("Lecture 15.1", 2.25, 3.00),
+            new Item("Lecture 15.2", 1.50, 3.00)
+    };
+
+    private static final Item[] groupProblemItems = {
+            new Item("Group Problems 1", 2.00, 4.00),
+            new Item("Group Problems 2", 2.00, 3.00),
+            new Item("Group Problems 3", 3.00, 5.00),
+            new Item("Group Problems 4", 1.0, 1.0),
+            new Item("Group Problems 5", 4.00, 5.00),
+            new Item("Group Problems 6", 4.00, 5.00),
+            new Item("Group Problems 7", 1.0, 1.0),
+            new Item("Group Problems 8", 3.00, 5.00),
+            new Item("Group Problems 9", 1.0, 1.0),
+            new Item("Group Problems 10", 1.0, 1.0),
+            new Item("Group Problems 11", 4.00, 5.00),
+            new Item("Group Problems 12", 2.00, 4.00),
+            new Item("Group Problems 13", 4.00, 6.00),
+            new Item("Group Problems 14", 3.00, 4.00),
+            new Item("Group Problems 15", 2.00, 4.00)
+    };
+
+    private static final Item[] onlineHWItems = {
+            new Item("Online HW 1", 0.0),
+            new Item("Online HW 2", 0.95),
+            new Item("Online HW 3", 0.90),
+            new Item("Online HW 4", 0.9333),
+            new Item("Online HW 5", 0.6889),
+            new Item("Online HW 6", 0.9445),
+            new Item("Online HW 7", 0.8333),
+            new Item("Online HW 8", 0.9667),
+            new Item("Online HW 9", 0.0),
+            new Item("Online HW 10", 0.6133),
+            new Item("Online HW 11", 0.7614),
+            new Item("Online HW 12", 1.0),
+            new Item("Online HW 13", 0.9167),
+            new Item("Online HW 14", 0.9953),
+            new Item("Online HW 15", 0.0),
+    };
+
+    private static final Item[] writtenHWItems = {
+            new Item("Written HW 0", 14.0, 20.0),
+            new Item("Written HW 1", 17.0, 20.0),
+            new Item("Written HW 2", 18.0, 20.0),
+            new Item("Written HW 3", 16.50, 20.0),
+            new Item("Written HW 4", 19.0, 20.0),
+            new Item("Written HW 5", 0.0, 20.0),
+            new Item("Written HW 6", 15.0, 20.0),
+            new Item("Written HW 7", 1.0),
+            new Item("Written HW 8", 19.0, 20.0),
+            new Item("Written HW 9", 0.0, 20.0),
+            new Item("Written HW 10", 1.0),
+            new Item("Written HW 11", 0.0, 20.0),
+            new Item("Written HW 12", 18.0, 20.0),
+            new Item("Written HW 13", 1.0),
+            new Item("Written HW 14", 18.0, 20.0)
+    };
+
+    private static final Item[] quizzesItems = {
+            new Item("Quiz 1", 6.0, 20.0),
+            new Item("Quiz 2", 13.0, 20.0),
+            new Item("Quiz 3", 14.0, 20.0),
+            new Item("Quiz 4", 5.0, 20.0),
+            new Item("Quiz 5", 17.0, 20.0),
+            new Item("Quiz 6", 8.0, 20.0),
+            new Item("Quiz 7", 0.0, 20.0),
+            new Item("Quiz 8", 5.0, 20.0),
+            new Item("Quiz 9", 9.0, 20.0),
+            new Item("Quiz 10", 10.0, 20.0),
+            new Item("Quiz 11", 3.0, 20.0),
+            new Item("Quiz 12", 4.0, 20.0)
+    };
+
+    private static final Item[] prelabsItems = {
+            new Item("Prelab 1", 1.0),
+            new Item("Prelab 2", 1.5, 4.0),
+            new Item("Prelab 3", 3.25, 4.0),
+            new Item("Prelab 4", 3.5, 4.0),
+            new Item("Prelab 5", 0.0, 4.0),
+            new Item("Prelab 6", 3.25, 4.0),
+            new Item("Prelab 7", 3.8, 4.0),
+            new Item("Prelab 8", 0.0, 4.0),
+            new Item("Prelab 9", 3.5, 4.0),
+            new Item("Prelab 10", 1.0)
+    };
+
+    private static final Item[] labsItems = {
+            new Item("Lab 1", 14.25, 16.0),
+            new Item("Lab 2", 0.0, 16.0),
+            new Item("Lab 3", 14.95, 16.0),
+            new Item("Lab 4", 14.0, 16.0),
+            new Item("Lab 5", 15.0, 16.0),
+            new Item("Lab 6", 14.0, 16.0),
+            new Item("Lab 7", 0.0, 16.0),
+            new Item("Lab 8", 0.0, 16.0),
+            new Item("Lab 9", 13.55, 16.0),
+            new Item("Lab 10", 0.0, 16.0)
+    };
+
+    private static final Item[] examsItems = {
+            new Item("Exam 1", 61.0, 100.0),
+            new Item("Exam 2", 54.5, 100.0),
+            new Item("Exam 3", 0.0, 100.0)
+    };
 
     /* --------------------------------------------------SetUp------------------------------------------------------- */
     @BeforeEach
@@ -83,27 +211,41 @@ public class CategoryTests {
 
     /* -----------------------------------------------Getter Tests--------------------------------------------------- */
     @Test
-    protected void getters_getWeight() {
+    protected void getters__getWeight() {
         CategoryTests.category.setWeight(30.0);
         assertEquals(30.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
     }
 
     @Test
-    protected void getters_getItem__nullItem() { assertNull(CategoryTests.category.getItem(null)); }
+    protected void getters__getItem__nullItem() { assertNull(CategoryTests.category.getItem(null)); }
 
     @Test
-    protected void getters_getItem__noItems() {
+    protected void getters__getItem__noItems() {
         Item item = new Item("Item", 98.3432);
         assertNull(CategoryTests.category.getItem(item.name));
     }
 
     @Test
-    protected void getters_getItem__doesNotContainItem() {
+    protected void getters__getItem__doesNotContainItem() {
         Item item = new Item("Item", 98.3432);
         assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
 
         Item otherItem = new Item("Other Item", 34.3332);
         assertNull(CategoryTests.category.getItem(otherItem.name));
+    }
+
+    @Test
+    protected void getters__getWorstItem() {
+        Item item1 = new Item("Item", 3.567);
+        Item item2 = new Item("Item", 13.433);
+        Item item3 = new Item("Item", 98.453);
+
+        assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
+        assertDoesNotThrow(() -> CategoryTests.category.addItem(item2));
+        assertDoesNotThrow(() -> CategoryTests.category.addItem(item3));
+
+        assertDoesNotThrow(() -> CategoryTests.category.drop());
+        assertEquals(item1, CategoryTests.category.getWorstItem());
     }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
@@ -176,9 +318,7 @@ public class CategoryTests {
     }
 
     @Test
-    protected void methods__removeItem__nullArgument() {
-        assertNull(CategoryTests.category.removeItem(null));
-    }
+    protected void methods__removeItem__nullArgument() { assertNull(CategoryTests.category.removeItem(null)); }
 
     @Test
     protected void methods__containsItem__trueCase() {
@@ -215,7 +355,7 @@ public class CategoryTests {
     }
 
     @Test
-    protected void methods__drop__validArgument__emptyDropList() {
+    protected void methods__drop() {
         Item item1 = new Item("Item 1", 13.3321);
         assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
 
@@ -224,67 +364,25 @@ public class CategoryTests {
 
         assertEquals(2, CategoryTests.category.countItems());
 
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item1));
+        assertDoesNotThrow(() -> CategoryTests.category.drop());
 
         assertEquals(1, CategoryTests.category.countDrops());
         assertEquals(1, CategoryTests.category.countItems());
         assertFalse(CategoryTests.category.containsItem(item1.name));
-        assertTrue(CategoryTests.category.isDropped(item1.name));
+        assertEquals(item1, CategoryTests.category.getWorstItem());
     }
 
     @Test
-    protected void methods__drop__validArgument__itemAlreadyDropped() {
-        Item item1 = new Item("Item 1", 13.3321);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
-
-        Item item2 = new Item("Item 2", 99.3268);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item2));
-
-        assertEquals(2, CategoryTests.category.countItems());
-
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item1));
-
-        assertEquals(1, CategoryTests.category.countDrops());
-        assertEquals(1, CategoryTests.category.countItems());
-        assertFalse(CategoryTests.category.containsItem(item1.name));
-        assertTrue(CategoryTests.category.isDropped(item1.name));
-
-        assertDoesNotThrow(() -> item1.setPointsEarned(32.04));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item1));
-        assertEquals(1, CategoryTests.category.countDrops());
-        assertEquals(1, CategoryTests.category.countItems());
-        assertFalse(CategoryTests.category.containsItem(item1.name));
-        assertTrue(CategoryTests.category.isDropped(item1.name));
-    }
-
-    @Test
-    protected void methods__drop__invalidArgument__nullArgument() {
-        assertThrows(NullPointerException.class, () -> CategoryTests.category.drop(null));
-    }
-
-    @Test
-    protected void methods__drop__invalidArgument__itemNotAdded() {
-        Item item = new Item("Item", 89.3242);
-        assertThrows(IllegalArgumentException.class, () -> CategoryTests.category.drop(item));
-    }
-
-    @Test
-    protected void methods__undrop__itemIsDropped() {
+    protected void methods__undrop__nonNullCase() {
         Item item = new Item("Item", 3.567);
 
         assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item));
-        assertEquals(item, CategoryTests.category.undrop(item));
+        assertDoesNotThrow(() -> CategoryTests.category.drop());
+        assertEquals(item, CategoryTests.category.undrop());
     }
 
     @Test
-    protected void methods__undrop__itemIsNotDropped() {
-        Item item = new Item("Item", 23.3246);
-        assertNull(CategoryTests.category.undrop(item));
-    }
-
-    @Test
-    protected void methods__undrop__nullItem() { assertNull(CategoryTests.category.undrop(null)); }
+    protected void methods__undrop__nullCase() { assertNull(CategoryTests.category.undrop()); }
 
     @Test
     protected void methods__countDrops() {
@@ -292,30 +390,14 @@ public class CategoryTests {
         Item otherItem = new Item("Other Item", 0.999921);
 
         assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item));
+        assertDoesNotThrow(() -> CategoryTests.category.drop());
 
         assertDoesNotThrow(() -> CategoryTests.category.addItem(otherItem));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(otherItem));
+        assertDoesNotThrow(() -> CategoryTests.category.drop());
 
         assertEquals(2, CategoryTests.category.countDrops());
     }
 
-    @Test
-    protected void methods__isDropped__trueCase() {
-        Item item = new Item("Item", 3.567);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item));
-        assertTrue(CategoryTests.category.isDropped(item.name));
-    }
-
-    @Test
-    protected void methods__isDropped__falseCase() {
-        Item item = new Item("Item", 3.567);
-
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop(item));
-        assertFalse(CategoryTests.category.isDropped("Other Item"));
-    }
 
 }
