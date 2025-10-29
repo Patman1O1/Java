@@ -108,27 +108,11 @@ public class Course {
         return this.categories.containsKey(categoryName) || this.emptyCategories.containsKey(categoryName);
     }
 
-    public void updateCategory(Category category) throws NullPointerException {
-        if (category == null) {
-            throw new NullPointerException("\"category\" cannot be null");
+    public boolean containsCategory(String categoryName) {
+        if (categoryName == null) {
+            return false;
         }
-
-        String categoryName = category.getName();
-
-        this.categories.remove(categoryName);
-
-        // If the category that was previously empty now contains items...
-        if (this.emptyCategories.containsKey(categoryName) && category.countItems() > 0) {
-            // Remove the category from the empty categories map
-            this.emptyCategories.remove(categoryName);
-        } else if (!this.emptyCategories.containsKey(categoryName) && category.countItems() == 0) {
-            // Otherwise, if the category previously had items is now empty, then add the category to the empty
-            // categories map
-            this.emptyCategories.put(categoryName, category);
-        }
-
-        // Add the updated category to the categories map
-        this.categories.put(categoryName, category);
+        return this.categories.containsKey(categoryName);
     }
 
     public int countCategories() { return this.categories.size(); }

@@ -203,11 +203,89 @@ public class CourseTests {
 
     @Test
     protected void methods__removeCategory__categoryOverload__validCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
 
+        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
+            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+            assertTrue(CourseTests.course.removeCategory(CourseTests.phys142Categories[i]));
+            assertFalse(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        }
+    }
+
+    @Test
+    protected void methods__removeCategory__categoryOverload__invalidCategories() {
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[0]));
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[1]));
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[2]));
     }
 
     @Test
     protected void methods__removeCategory__stringOverload__validCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
 
+        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
+            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+            assertTrue(CourseTests.course.removeCategory(CourseTests.phys142Categories[i].getName()));
+            assertFalse(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        }
     }
+
+    @Test
+    protected void methods__removeCategory__stringOverload__invalidCategories() {
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[0].getName()));
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[1].getName()));
+        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[2].getName()));
+    }
+
+    @Test
+    protected void methods__containsCategory__categoryOverload__validCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
+
+        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
+            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        }
+    }
+
+    @Test
+    protected void methods__containsCategory__categoryOverload__invalidCategories() {
+        assertFalse(CourseTests.course.containsCategory(new Category("Some Category")));
+        assertFalse(CourseTests.course.containsCategory(new Category("Some Other Category")));
+        assertFalse(CourseTests.course.containsCategory(new Category(null)));
+    }
+
+    @Test
+    protected void methods__containsCategory__stringOverload__validCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
+
+        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
+            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i].getName()));
+        }
+    }
+
+    @Test
+    protected void methods__containsCategory__stringOverload__invalidCategories() {
+        assertFalse(CourseTests.course.containsCategory("Some Category"));
+        assertFalse(CourseTests.course.containsCategory("Some Other Category"));
+    }
+
+    @Test
+    protected void methods__countCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
+
+        assertEquals(CourseTests.phys142Categories.length, CourseTests.course.countCategories());
+    }
+
+    @Test
+    protected void methods__countEmptyCategories() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
+
+        assertEquals(0, CourseTests.course.countEmptyCategories());
+    }
+
 }
