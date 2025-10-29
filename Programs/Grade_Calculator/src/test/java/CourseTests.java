@@ -288,4 +288,12 @@ public class CourseTests {
         assertEquals(0, CourseTests.course.countEmptyCategories());
     }
 
+    @Test
+    protected void methods__calculateGrade__phys142() {
+        CourseTests.course = CourseTests.createPhys142();
+        assertNotNull(CourseTests.course);
+
+        assertEquals(54.81308273670773, CourseTests.course.calculateGrade() * 100, CourseTests.EPSILON);
+    }
+
 }

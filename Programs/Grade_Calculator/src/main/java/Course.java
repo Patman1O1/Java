@@ -138,7 +138,7 @@ public class Course {
             weightedGradeSum += category.getGrade() * category.getWeight();
         }
 
-        return weightedGradeSum / (this.categories.size() - this.emptyCategories.size());
+        return weightedGradeSum;
     }
 
 }
