@@ -1,3 +1,5 @@
+package com.gradecalc;
+
 import java.util.Arrays;
 
 public class Phys142 {

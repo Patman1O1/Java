@@ -1,5 +1,9 @@
+package com.gradecalc.tests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.gradecalc.Category;
+import com.gradecalc.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

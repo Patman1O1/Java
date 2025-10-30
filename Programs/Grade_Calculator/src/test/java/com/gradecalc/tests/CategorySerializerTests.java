@@ -1,12 +1,15 @@
+package com.gradecalc.tests;
+
+import com.gradecalc.CategorySerializer;
 import org.junit.jupiter.api.BeforeEach;
 
-public class CourseDeserializerTests {
+public class CategorySerializerTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
-    private static CourseDeserializer courseDeserializer;
+    private static CategorySerializer categorySerializer;
 
     /* --------------------------------------------------SetUp------------------------------------------------------- */
     @BeforeEach
-    protected void setUp() { CourseDeserializerTests.courseDeserializer = new CourseDeserializer(); }
+    protected void setUp() { CategorySerializerTests.categorySerializer = new CategorySerializer(); }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
 

@@ -1,3 +1,6 @@
+package com.gradecalc.tests;
+
+import com.gradecalc.CategoryDeserializer;
 import org.junit.jupiter.api.BeforeEach;
 
 public class CategoryDeserializerTests {
