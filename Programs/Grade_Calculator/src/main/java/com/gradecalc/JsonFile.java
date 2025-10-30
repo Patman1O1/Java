@@ -5,16 +5,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-public class CourseFile extends File {
+public class JsonFile<T> extends File {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     protected static final ObjectMapper objectMapper = new ObjectMapper();
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    protected CourseFile(String pathname) throws NullPointerException, InvalidPathException {
-        super(CourseFile.validatePathname(pathname));
+    protected JsonFile(String pathname) throws NullPointerException, InvalidPathException {
+        super(validatePathname(pathname));
     }
 
-    protected CourseFile(Path path) { super(CourseFile.validatePathname(path.toString())); }
+    protected JsonFile(Path path) { super(validatePathname(path.toString())); }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
     private static String validatePathname(String pathname) throws NullPointerException, InvalidPathException {
@@ -37,10 +37,9 @@ public class CourseFile extends File {
         return pathname;
     }
 
-    public Course read() throws IOException { return CourseFile.objectMapper.readValue(this, Course.class); }
+    public T read(Class<T> type) throws IOException { return objectMapper.readValue(this, type); }
 
-    public void write(Course course) throws IOException {
-        CourseFile.objectMapper.writerWithDefaultPrettyPrinter().writeValue(this, course);
+    public void write(T object) throws IOException {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(this, object);
     }
-
 }

@@ -2,7 +2,6 @@ package com.gradecalc.tests;
 
 import com.gradecalc.Item;
 import com.gradecalc.ItemSerializer;
-import com.gradecalc.Phys142;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
