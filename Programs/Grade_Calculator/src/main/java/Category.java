@@ -1,5 +1,9 @@
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.*;
 
+@JsonSerialize(using = CategorySerializer.class)
+@JsonDeserialize(using = CategoryDeserializer.class)
 public class Category {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
@@ -95,6 +99,10 @@ public class Category {
 
     public double getWeight() { return this.weight; }
 
+    public Iterable<Item> getItems() { return this.items.values(); }
+
+    public Iterable<Item> getDrops() { return this.drops; }
+
     public Item getItem(String itemName) {
         if (itemName == null || this.items.isEmpty() || !this.items.containsKey(itemName)) {
             return null;
@@ -163,6 +171,8 @@ public class Category {
         }
         return this.items.containsKey(itemName);
     }
+
+    public boolean isEmpty() { return this.items.isEmpty(); }
 
     public int countItems() { return this.items.size(); }
 

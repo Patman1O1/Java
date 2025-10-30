@@ -1,3 +1,8 @@
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonSerialize(using = ItemSerializer.class)
+@JsonDeserialize(using = ItemDeserializer.class)
 public class Item {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;

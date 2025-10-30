@@ -1,6 +1,8 @@
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Map;
 import java.util.HashMap;
 
+@JsonSerialize(using = CourseSerializer.class)
 public class Course {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1e-10;
@@ -44,6 +46,8 @@ public class Course {
 
     /* -------------------------------------------------Getters------------------------------------------------------ */
     public String getName() { return this.name; }
+
+    public Iterable<Category> getCategories() { return this.categories.values(); }
 
     public Category getCategory(String categoryName) {
         if (categoryName == null) {
