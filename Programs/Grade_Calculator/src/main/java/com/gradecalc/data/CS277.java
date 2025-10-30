@@ -1,0 +1,4 @@
+package com.gradecalc.data;
+
+public class CS277 {
+}
