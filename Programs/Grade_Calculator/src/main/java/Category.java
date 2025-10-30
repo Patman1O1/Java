@@ -1,5 +1,7 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.*;
 
 @JsonSerialize(using = CategorySerializer.class)
@@ -8,12 +10,19 @@ public class Category {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
 
+    @JsonProperty("name")
     private String name;
 
-    private double weight, grade;
+    @JsonProperty("weight")
+    private double weight;
 
+    @JsonProperty("grade")
+    private double grade;
+
+    @JsonProperty("items")
     private final Map<String, Item> items;
 
+    @JsonProperty("drops")
     private final Stack<Item> drops;
 
     private final Queue<Item> worstItems;
@@ -22,7 +31,7 @@ public class Category {
     public Category() {
         this.name = "";
         this.weight = this.grade = 0.0;
-        this.items = new HashMap<>();
+        this.items = new TreeMap<>();
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
         this.drops = new Stack<>();
     }
@@ -30,7 +39,7 @@ public class Category {
     public Category(String name) {
         this.setName(name);
         this.weight = this.grade = 0.0;
-        this.items = new HashMap<>();
+        this.items = new TreeMap<>();
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
         this.drops = new Stack<>();
     }
@@ -39,7 +48,7 @@ public class Category {
         this.setName(name);
         this.setWeight(weight);
         this.grade = 0.0;
-        this.items = new HashMap<>();
+        this.items = new TreeMap<>();
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
         this.drops = new Stack<>();
     }
@@ -50,7 +59,7 @@ public class Category {
 
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
         this.drops = new Stack<>();
-        this.items = new HashMap<>();
+        this.items = new TreeMap<>();
         this.setItems(items);
     }
 
@@ -64,7 +73,7 @@ public class Category {
 
         this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
         this.drops = new Stack<>();
-        this.items = new HashMap<>();
+        this.items = new TreeMap<>();
         this.setItems(items);
 
         for (int i = 0; i < numDrops; ++i) {

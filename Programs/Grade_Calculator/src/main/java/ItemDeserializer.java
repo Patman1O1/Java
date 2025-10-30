@@ -2,6 +2,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+
 import java.io.IOException;
 
 public class ItemDeserializer extends JsonDeserializer<Item> {
@@ -11,10 +12,10 @@ public class ItemDeserializer extends JsonDeserializer<Item> {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
 
         // Read the item's name
-        String itemName = jsonNode.get("Name").asText();
+        String itemName = jsonNode.get("name").asText();
 
         // Read the item's grade
-        double itemGrade = jsonNode.get("Grade").asDouble();
+        double itemGrade = jsonNode.get("grade").asDouble();
 
         // Create a new instance of the item with the data
         return new Item(itemName, itemGrade);

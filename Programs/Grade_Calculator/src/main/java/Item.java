@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -7,8 +8,10 @@ public class Item {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("grade")
     private double grade;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */

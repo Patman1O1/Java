@@ -25,13 +25,13 @@ public class CourseSerializer extends JsonSerializer<Course> {
         jsonGenerator.writeStartObject();
 
         // Create the name field
-        jsonGenerator.writeStringField("Name", course.getName());
+        jsonGenerator.writeStringField("name", course.getName());
 
         // Create the grade field
-        jsonGenerator.writeNumberField("Grade", course.calculateGrade());
+        jsonGenerator.writeNumberField("grade", course.calculateGrade());
 
         // Create the categories field
-        jsonGenerator.writeArrayFieldStart("Categories");
+        jsonGenerator.writeArrayFieldStart("categories");
         for (Category category : course.getCategories()) {
             if (category == null || category.isEmpty()) {
                 jsonGenerator.writeNull();

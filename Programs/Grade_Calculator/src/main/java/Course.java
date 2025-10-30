@@ -1,31 +1,35 @@
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.util.Map;
-import java.util.HashMap;
+
+import java.util.*;
 
 @JsonSerialize(using = CourseSerializer.class)
+@JsonIgnoreProperties({"grade"})
 public class Course {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1e-10;
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("categories")
     private final Map<String, Category> categories;
 
     private final Map<String, Category> emptyCategories;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    public Course() { this.name = ""; this.categories = new HashMap<>(); this.emptyCategories = new HashMap<>(); }
+    public Course() { this.name = ""; this.categories = new TreeMap<>(); this.emptyCategories = new TreeMap<>(); }
 
     public Course(String name) {
         this.setName(name);
-        this.categories = new HashMap<>();
-        this.emptyCategories = new HashMap<>();
+        this.categories = new TreeMap<>();
+        this.emptyCategories = new TreeMap<>();
     }
 
     public Course(String name, Iterable<Category> categories) throws NullPointerException {
         this.setName(name);
-        this.categories = new HashMap<>();
-        this.emptyCategories = new HashMap<>();
+        this.categories = new TreeMap<>();
+        this.emptyCategories = new TreeMap<>();
         this.setCategories(categories);
     }
 

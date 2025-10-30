@@ -2,7 +2,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import java.io.IOException;
@@ -15,17 +15,17 @@ public class CourseDeserializer extends JsonDeserializer<Course> {
     public Course deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
         ArrayNode arrayNode;
-        JsonMapper jsonMapper = (JsonMapper) jsonParser.getCodec();
+        ObjectMapper objectMapper = (ObjectMapper)jsonParser.getCodec();
 
         // Read the course's name
-        String courseName = jsonNode.get("Name").asText();
+        String courseName = jsonNode.get("name").asText();
 
         // Read the course's categories
         List<Category> categories = new ArrayList<>();
-        arrayNode = (ArrayNode)jsonNode.get("Categories");
+        arrayNode = (ArrayNode)jsonNode.get("categories");
         if (arrayNode != null) {
             for (JsonNode categoryNode : arrayNode) {
-                categories.add(jsonMapper.treeToValue(categoryNode, Category.class));
+                categories.add(objectMapper.treeToValue(categoryNode, Category.class));
             }
         }
 

@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+
 import java.io.IOException;
 
 public class ItemSerializer extends JsonSerializer<Item> {
@@ -16,10 +17,10 @@ public class ItemSerializer extends JsonSerializer<Item> {
         jsonGenerator.writeStartObject();
 
         // Create the name field
-        jsonGenerator.writeStringField("Name", item.getName());
+        jsonGenerator.writeStringField("name", item.getName());
 
         // Create the grade field
-        jsonGenerator.writeNumberField("Grade", item.getGrade());
+        jsonGenerator.writeNumberField("grade", item.getGrade());
 
         // Stop writing to the .json file
         jsonGenerator.writeEndObject();

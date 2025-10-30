@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+
 import java.io.IOException;
 
 public class CategorySerializer extends JsonSerializer<Category> {
@@ -16,16 +17,16 @@ public class CategorySerializer extends JsonSerializer<Category> {
         jsonGenerator.writeStartObject();
 
         // Create the name field
-        jsonGenerator.writeStringField("Name", category.getName());
+        jsonGenerator.writeStringField("name", category.getName());
 
         // Create the grade field
-        jsonGenerator.writeNumberField("Grade", category.getGrade());
+        jsonGenerator.writeNumberField("grade", category.getGrade());
 
         // Create the weight field
-        jsonGenerator.writeNumberField("Weight", category.getWeight());
+        jsonGenerator.writeNumberField("weight", category.getWeight());
 
         // Create the items field
-        jsonGenerator.writeArrayFieldStart("Items");
+        jsonGenerator.writeArrayFieldStart("items");
         for (Item item : category.getItems()) {
             if (item == null) {
                 jsonGenerator.writeNull();
@@ -38,7 +39,7 @@ public class CategorySerializer extends JsonSerializer<Category> {
         jsonGenerator.writeEndArray();
 
         // Create the drops field
-        jsonGenerator.writeArrayFieldStart("Drops");
+        jsonGenerator.writeArrayFieldStart("drops");
 
         for (Item item : category.getDrops()) {
             if (item == null) {

@@ -1,7 +1,7 @@
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -12,29 +12,29 @@ public class CategoryDeserializer extends JsonDeserializer<Category> {
             throws IOException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
         ArrayNode arrayNode;
-        JsonMapper jsonMapper = (JsonMapper) jsonParser.getCodec();
+        ObjectMapper objectMapper = (ObjectMapper)jsonParser.getCodec();
 
         // Read the category's name
-        String categoryName = jsonNode.get("Name").asText();
+        String categoryName = jsonNode.get("name").asText();
 
         // Read the category's weight
-        double categoryWeight = jsonNode.get("Weight").asDouble();
+        double categoryWeight = jsonNode.get("weight").asDouble();
 
         // Read the category's items
         List<Item> items = new ArrayList<>();
-        arrayNode = (ArrayNode)jsonNode.get("Items");
+        arrayNode = (ArrayNode)jsonNode.get("items");
         if (arrayNode != null) {
             for (JsonNode itemNode : arrayNode) {
-                items.add(jsonMapper.treeToValue(itemNode, Item.class));
+                items.add(objectMapper.treeToValue(itemNode, Item.class));
             }
         }
 
         // Read the category's drops
         int numDrops = 0;
-        arrayNode = (ArrayNode)jsonNode.get("Drops");
+        arrayNode = (ArrayNode)jsonNode.get("drops");
         if (arrayNode != null) {
             for (JsonNode itemNode : arrayNode) {
-                items.add(jsonMapper.treeToValue(itemNode, Item.class));
+                items.add(objectMapper.treeToValue(itemNode, Item.class));
                 ++numDrops;
             }
         }
