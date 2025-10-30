@@ -7,14 +7,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 
 public class CourseSerializer extends JsonSerializer<Course> {
-    /* --------------------------------------------------Fields------------------------------------------------------ */
-
-    /* -----------------------------------------------Constructors--------------------------------------------------- */
-
-    /* -------------------------------------------------Setters------------------------------------------------------ */
-
-    /* -------------------------------------------------Getters------------------------------------------------------ */
-
     /* -------------------------------------------------Methods------------------------------------------------------ */
     @Override
     public void serialize(Course course, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
