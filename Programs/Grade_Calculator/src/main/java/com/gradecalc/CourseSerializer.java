@@ -28,7 +28,6 @@ public class CourseSerializer extends JsonSerializer<Course> {
         jsonGenerator.writeArrayFieldStart("categories");
         for (Category category : course.getCategories()) {
             if (category == null || category.isEmpty()) {
-                jsonGenerator.writeNull();
                 continue;
             }
 

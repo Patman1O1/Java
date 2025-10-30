@@ -9,8 +9,6 @@ import java.util.*;
 @JsonIgnoreProperties({"grade"})
 public class Course {
     /* --------------------------------------------------Fields------------------------------------------------------ */
-    private static final double EPSILON = 1e-10;
-
     @JsonProperty("name")
     private String name;
 

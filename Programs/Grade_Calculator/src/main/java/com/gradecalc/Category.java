@@ -124,7 +124,12 @@ public class Category {
 
     public Item getWorstItem() { return this.worstItems.peek(); }
 
-    public double getGrade() { return this.grade / this.items.size(); }
+    public double getGrade() {
+        if (this.items.isEmpty()) {
+            return 0.0;
+        }
+        return this.grade / this.items.size();
+    }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
     protected static boolean doubleCompare(double lhs, double rhs) { return Math.abs(lhs - rhs) < Category.EPSILON; }

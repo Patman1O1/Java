@@ -7,13 +7,60 @@ import java.util.Arrays;
 
 public class CS362 {
     /* ----------------------------------------------Fields (Items)-------------------------------------------------- */
+    public static final Item[] homeworkItems = {
+            new Item("Homework 1", 32.00, 50.00),
+            new Item("Homework 2", 34.00, 40.00),
+            new Item("Homework 3", 0, 30.00)
+    };
+
+    public static final Item[] labAssignmentItems = {
+            new Item("Lab 1",100.0, 100.0),
+            new Item("Lab 2", 0.0, 100.0),
+            new Item("Lab 3", 0.0, 100.0),
+            new Item("Lab 4", 90.0, 100.0),
+            new Item("Lab 5", 75.0, 100.0),
+            new Item("Lab 6", 100.0, 100.0)
+    };
+
+    public static final Item[] labReportItems = {
+
+    };
+
+    public static final Item[] groupProjectItems = {
+        new Item("Milestone 6", 100.0, 100.0)
+    };
+
+    public static final Item[] examsItems = {
+        new Item("Midterm 1", 37.0, 100.0)
+    };
+
+    public static final Item[] classParticipationItems = {
+
+    };
 
     /* -------------------------------------------Fields (Categories)------------------------------------------------ */
+    public static final Category homeworks = new Category("Homeworks", 0.18, Arrays.asList(homeworkItems));
+
+    public static final Category labAssignments = new Category("Lab Assignments", 0.16, Arrays.asList(labAssignmentItems), 1);
+
+    public static final Category labReports = new Category("Lab Reports", 0.06, Arrays.asList(labReportItems));
+
+    public static final Category groupProject = new Category("Group Project", 0.25, Arrays.asList(groupProjectItems));
+
+    public static final Category exams = new Category("Exams", 0.15, Arrays.asList(examsItems));
+
+    public static final Category classParticipation = new Category("Class Participation", 0.05, Arrays.asList(classParticipationItems));
+
+    public static final Category[] categories = {
+            homeworks,
+            labAssignments,
+            labReports,
+            groupProject,
+            exams,
+            classParticipation
+    };
 
     /* ---------------------------------------------Fields (Course)-------------------------------------------------- */
-
-    public static void main(String[] args) {
-
-    }
+    public static final Course course = new Course("CS 362", Arrays.asList(categories));
 
 }

@@ -31,7 +31,6 @@ public class CategorySerializer extends JsonSerializer<Category> {
         jsonGenerator.writeArrayFieldStart("items");
         for (Item item : category.getItems()) {
             if (item == null) {
-                jsonGenerator.writeNull();
                 continue;
             }
 
