@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gradecalc.gui.NewCourseController"
+            fx:id = "sceneRoot"
+            minWidth="500.0"
+            minHeight="500.0"
+            prefWidth="500.0"
+            prefHeight="500.0"
+            styleClass="border">
+
+
+</BorderPane>
