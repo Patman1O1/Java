@@ -1,24 +1,22 @@
 package com.gradecalc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.InvalidPathException;
 
-public class JsonFile<T> extends File {
+public class CourseFile extends File {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     protected static final ObjectMapper objectMapper = new ObjectMapper();
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    public JsonFile(String pathname) throws NullPointerException, InvalidPathException { super(pathname); }
-
-    public JsonFile(Path path) { super(path.toString()); }
+    public CourseFile(String pathname) throws NullPointerException, InvalidPathException { super(pathname); }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
-    public T read(Class<T> type) throws IOException { return objectMapper.readValue(this, type); }
+    public Course read() throws IOException { return objectMapper.readValue(this, Course.class); }
 
-    public void write(T object) throws IOException {
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(this, object);
+    public void write(Course course) throws IOException {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(this, course);
     }
-
 }

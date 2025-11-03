@@ -16,10 +16,10 @@ public class GradeCalculator extends Application {
         try {
             stage.setTitle("Grade Calculator");
 
-            Parent startSceneRoot = FXMLLoader.load(Objects.requireNonNull(
+            Parent startRoot = FXMLLoader.load(Objects.requireNonNull(
                     getClass().getResource("/fxml/StartFXML.fxml")));
 
-            Scene startScene = new Scene(startSceneRoot);
+            Scene startScene = new Scene(startRoot);
             startScene.getStylesheets().add("/css/styles.css");
 
             stage.setScene(startScene);

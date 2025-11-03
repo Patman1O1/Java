@@ -14,7 +14,7 @@ public class CategoryDeserializer extends JsonDeserializer<Category> {
             throws IOException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
         ArrayNode arrayNode;
-        ObjectMapper objectMapper = (ObjectMapper)jsonParser.getCodec();
+        ObjectMapper objectMapper = (ObjectMapper) jsonParser.getCodec();
 
         // Read the category's name
         String categoryName = jsonNode.get("name").asText();
@@ -24,7 +24,7 @@ public class CategoryDeserializer extends JsonDeserializer<Category> {
 
         // Read the category's items
         List<Item> items = new ArrayList<>();
-        arrayNode = (ArrayNode)jsonNode.get("items");
+        arrayNode = (ArrayNode) jsonNode.get("items");
         if (arrayNode != null) {
             for (JsonNode itemNode : arrayNode) {
                 items.add(objectMapper.treeToValue(itemNode, Item.class));

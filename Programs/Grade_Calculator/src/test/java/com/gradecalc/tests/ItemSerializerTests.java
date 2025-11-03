@@ -47,9 +47,7 @@ public class ItemSerializerTests {
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
     @Test
     protected void methods__serialize__phys142__lectures() {
-        for (Item item : Phys142.lectureItems) {
 
-        }
     }
 
 }

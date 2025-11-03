@@ -17,14 +17,14 @@ public class CourseDeserializer extends JsonDeserializer<Course> {
     public Course deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
         ArrayNode arrayNode;
-        ObjectMapper objectMapper = (ObjectMapper)jsonParser.getCodec();
+        ObjectMapper objectMapper = (ObjectMapper) jsonParser.getCodec();
 
         // Read the course's name
         String courseName = jsonNode.get("name").asText();
 
         // Read the course's categories
         List<Category> categories = new ArrayList<>();
-        arrayNode = (ArrayNode)jsonNode.get("categories");
+        arrayNode = (ArrayNode) jsonNode.get("categories");
         if (arrayNode != null) {
             for (JsonNode categoryNode : arrayNode) {
                 categories.add(objectMapper.treeToValue(categoryNode, Category.class));

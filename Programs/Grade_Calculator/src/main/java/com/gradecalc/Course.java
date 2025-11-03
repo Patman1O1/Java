@@ -134,6 +134,7 @@ public class Course {
 
         // Create a local variable to store the sum of every category grade multiplied by its weight
         double weightedGradeSum = 0.0;
+        double totalWeights = 0.0;
 
         // For each category in the course...
         for (Category category : this.categories.values()) {
@@ -143,10 +144,12 @@ public class Course {
             }
 
             // Sum the weighted grade of the current item with weighted grade sum
-            weightedGradeSum += category.getGrade() * category.getWeight();
+            double weight = category.getWeight();
+            weightedGradeSum += category.getGrade() * weight;
+            totalWeights += weight;
         }
 
-        return weightedGradeSum;
+        return weightedGradeSum / totalWeights;
     }
 
 }

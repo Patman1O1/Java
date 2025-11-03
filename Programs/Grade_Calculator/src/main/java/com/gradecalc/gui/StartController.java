@@ -3,6 +3,7 @@ package com.gradecalc.gui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,13 +18,13 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.lang.System;
 
-public class StartController {
+public class StartController implements Initializable {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     @FXML
     protected VBox root;
 
     @FXML
-    protected Button newCourseButton;
+    protected Button courseButton;
 
     @FXML
     protected Button editCourseButton;
@@ -39,9 +40,9 @@ public class StartController {
     public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
-    public void showNewCourseScene() throws Exception {
+    public void showCourseScene() throws Exception {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NewCourseFXML.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/CourseFXML.fxml"));
             Parent newCourseRoot = fxmlLoader.load();
 
             newCourseRoot.getStylesheets().add("/css/styles.css");
@@ -57,24 +58,6 @@ public class StartController {
     }
 
     @FXML
-    public void showEditCourseScene() throws Exception {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NewCourseFXML.fxml"));
-            Parent newCourseRoot = fxmlLoader.load();
-
-            newCourseRoot.getStylesheets().add("/css/styles.css");
-
-            this.root.getScene().setRoot(newCourseRoot);
-
-            Stage stage = (Stage) newCourseRoot.getScene().getWindow();
-            stage.sizeToScene();
-            stage.centerOnScreen();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void exitApp() { Platform.exit(); }
+    public void handleExit() { Platform.exit(); }
 
 }

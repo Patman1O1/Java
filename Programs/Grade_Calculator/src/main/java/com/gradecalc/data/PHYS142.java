@@ -170,6 +170,7 @@ public class PHYS142 {
     /* ---------------------------------------------Fields (Course)-------------------------------------------------- */
     public static final Course course = new Course("PHYS 142", Arrays.asList(categories));
 
+    /* -------------------------------------------------Main--------------------------------------------------------- */
     public static void main(String[] args) {
 
     }

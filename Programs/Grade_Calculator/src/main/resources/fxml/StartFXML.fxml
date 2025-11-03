@@ -12,21 +12,15 @@
       alignment="CENTER"
       styleClass="vbox">
 
-    <Button fx:id="newCourseButton"
-            text="New Course"
-            onAction="#showNewCourseScene"
-            prefWidth="150.0"
-            styleClass="button"/>
-
-    <Button fx:id="editCourseButton"
-            text="Edit Course"
-            onAction="#showEditCourseScene"
-            prefWidth="150.0"
+    <Button fx:id="courseButton"
+            text="Calculate Course Grade"
+            onAction="#showCourseScene"
+            prefWidth="200.0"
             styleClass="button"/>
 
     <Button fx:id="exitButton"
             text="Exit"
-            onAction="#exitApp"
-            prefWidth="150.0"
+            onAction="#handleExit"
+            prefWidth="200.0"
             styleClass="button"/>
 </VBox>

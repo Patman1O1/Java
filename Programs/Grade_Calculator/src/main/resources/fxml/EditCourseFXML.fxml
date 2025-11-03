@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.gradecalc.gui.EditCourseController"
-            fx:id = "sceneRoot"
+            fx:id="sceneRoot"
             prefWidth="500.0"
             prefHeight="500.0"
             styleClass="border">
@@ -16,9 +16,8 @@
             <Menu text="File">
                 <MenuItem fx:id="newCourseItem" text="New Course" onAction="#showNewCourseScene"/>
                 <SeparatorMenuItem/>
-                <MenuItem fx:id="exitItem" text="Exit" onAction="#exitApp"/>
+                <MenuItem fx:id="exitItem" text="Exit" onAction="#exit"/>
             </Menu>
         </MenuBar>
     </top>
-
 </BorderPane>
