@@ -6,15 +6,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.gradecalc.Course;
-import com.gradecalc.CourseFile;
+import com.gradecalc.io.CourseFile;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +24,9 @@ public class CourseController implements Initializable {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     @FXML
     protected BorderPane sceneRoot;
+
+    @FXML
+    protected VBox menuBarRoot;
 
     @FXML
     protected MenuBar menuBar;
@@ -86,6 +86,9 @@ public class CourseController implements Initializable {
 
             this.courseNameLabel.setFont(Font.font("System", FontWeight.BOLD, 50));
             this.courseNameLabel.setText(course.getName());
+            this.courseNameLabel.setAlignment(Pos.TOP_CENTER);
+
+            this.menuBarRoot.getChildren().add(this.courseNameLabel);
 
             // Display the course information
             //TreeItem<String>

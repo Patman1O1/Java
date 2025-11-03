@@ -2,6 +2,7 @@ package com.gradecalc;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gradecalc.io.CourseSerializer;
 
 import java.util.*;
 

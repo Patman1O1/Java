@@ -1,8 +1,10 @@
-package com.gradecalc;
+package com.gradecalc.io;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.gradecalc.Category;
+import com.gradecalc.Item;
 
 import java.io.IOException;
 import java.util.*;

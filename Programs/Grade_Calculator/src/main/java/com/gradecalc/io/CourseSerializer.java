@@ -1,8 +1,10 @@
-package com.gradecalc;
+package com.gradecalc.io;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.gradecalc.Category;
+import com.gradecalc.Course;
 
 import java.io.IOException;
 

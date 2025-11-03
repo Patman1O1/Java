@@ -13,24 +13,20 @@
             prefHeight="400.0" prefWidth="600.0">
 
     <top>
-        <MenuBar fx:id="menuBar">
-            <Menu text="File">
-                <MenuItem fx:id="newItem" text="New Course" onAction="#handleNewCourse"/>
-                <SeparatorMenuItem/>
-                <MenuItem fx:id="openItem" text="Open Course" onAction="#handleOpenCourse"/>
-                <SeparatorMenuItem/>
-                <MenuItem fx:id="exitItem" text="Exit" onAction="#handleExit"/>
-            </Menu>
-        </MenuBar>
+        <VBox fx:id="menuBarRoot" spacing="20.0" alignment="TOP_CENTER">
+            <MenuBar fx:id="menuBar">
+                <Menu text="File">
+                    <MenuItem fx:id="newItem" text="New Course" onAction="#handleNewCourse"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem fx:id="openItem" text="Open Course" onAction="#handleOpenCourse"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem fx:id="exitItem" text="Exit" onAction="#handleExit"/>
+                </Menu>
+            </MenuBar>
+
+            <Label fx:id="courseNameLabel"/>
+        </VBox>
     </top>
 
-    <center>
-        <Label fx:id="courseNameLabel"
-               styleClass="label"
-               alignment="TOP_CENTER"
-               textAlignment="CENTER"
-               minWidth="100.0"
-               minHeight="50.0"/>
-    </center>
 
 </BorderPane>

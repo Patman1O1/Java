@@ -3,6 +3,8 @@ package com.gradecalc;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.gradecalc.io.ItemDeserializer;
+import com.gradecalc.io.ItemSerializer;
 
 @JsonSerialize(using = ItemSerializer.class)
 @JsonDeserialize(using = ItemDeserializer.class)
