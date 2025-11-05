@@ -20,8 +20,7 @@ public class Category {
     @JsonProperty("weight")
     private double weight;
 
-    @JsonProperty("grade")
-    private double grade;
+    private double itemGradeSum;
 
     @JsonProperty("items")
     private final Map<String, Item> items;
@@ -34,26 +33,26 @@ public class Category {
     /* -----------------------------------------------Constructors--------------------------------------------------- */
     public Category() {
         this.name = "";
-        this.weight = this.grade = 0.0;
+        this.weight = this.itemGradeSum = 0.0;
         this.items = new TreeMap<>();
-        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::calculateGrade));
         this.drops = new Stack<>();
     }
 
     public Category(String name) {
         this.setName(name);
-        this.weight = this.grade = 0.0;
+        this.weight = this.itemGradeSum = 0.0;
         this.items = new TreeMap<>();
-        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::calculateGrade));
         this.drops = new Stack<>();
     }
 
     public Category(String name, double weight) throws IllegalArgumentException {
         this.setName(name);
         this.setWeight(weight);
-        this.grade = 0.0;
+        this.itemGradeSum = 0.0;
         this.items = new TreeMap<>();
-        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::calculateGrade));
         this.drops = new Stack<>();
     }
 
@@ -61,7 +60,7 @@ public class Category {
         this.setName(name);
         this.setWeight(weight);
 
-        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::calculateGrade));
         this.drops = new Stack<>();
         this.items = new TreeMap<>();
         this.setItems(items);
@@ -75,7 +74,7 @@ public class Category {
         this.setName(name);
         this.setWeight(weight);
 
-        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::getGrade));
+        this.worstItems = new PriorityQueue<>(Comparator.comparingDouble(Item::calculateGrade));
         this.drops = new Stack<>();
         this.items = new TreeMap<>();
         this.setItems(items);
@@ -126,15 +125,8 @@ public class Category {
 
     public Item getWorstItem() { return this.worstItems.peek(); }
 
-    public double getGrade() {
-        if (this.items.isEmpty()) {
-            return 0.0;
-        }
-        return this.grade / this.items.size();
-    }
-
     /* -------------------------------------------------Methods------------------------------------------------------ */
-    protected static boolean doubleCompare(double lhs, double rhs) { return Math.abs(lhs - rhs) < Category.EPSILON; }
+    private static boolean doubleEquals(double lhs, double rhs) { return Math.abs(lhs - rhs) < EPSILON; }
 
     @Override
     public String toString() { return this.name; }
@@ -145,7 +137,18 @@ public class Category {
             return false;
         }
 
-        return this.name.equals(other.name) && Category.doubleCompare(this.getGrade(), other.getGrade());
+        double thisGrade = this.calculateGrade();
+        double otherGrade = other.calculateGrade();
+
+        return this.name.equals(other.name) && doubleEquals(thisGrade, otherGrade);
+    }
+
+    public double calculateGrade() {
+        if (this.items.isEmpty()) {
+            return 0.0;
+        }
+
+        return this.itemGradeSum / this.items.size();
     }
 
     public void addItem(Item item) throws NullPointerException {
@@ -155,7 +158,7 @@ public class Category {
 
         this.items.put(item.getName(), item);
         this.worstItems.add(item);
-        this.grade += item.getGrade();
+        this.itemGradeSum += item.calculateGrade();
     }
 
     public Item removeItem(Item item) {
@@ -163,7 +166,7 @@ public class Category {
             return null;
         }
 
-        this.grade -= item.getGrade();
+        this.itemGradeSum -= item.calculateGrade();
         this.worstItems.remove(item);
         return this.items.remove(item.getName());
     }
@@ -201,7 +204,7 @@ public class Category {
 
         Item worstItem = this.worstItems.peek();
 
-        this.grade -= worstItem.getGrade();
+        this.itemGradeSum -= worstItem.calculateGrade();
         this.drops.push(worstItem);
         this.items.remove(worstItem.getName());
         this.worstItems.remove(worstItem);
@@ -214,7 +217,7 @@ public class Category {
 
         Item drop = this.drops.peek();
 
-        this.grade += drop.getGrade();
+        this.itemGradeSum += drop.getEarnedPoints();
         this.items.put(drop.getName(), drop);
         this.worstItems.add(drop);
         return this.drops.pop();

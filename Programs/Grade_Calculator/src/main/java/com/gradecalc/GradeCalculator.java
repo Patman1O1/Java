@@ -17,7 +17,7 @@ public class GradeCalculator extends Application {
             stage.setTitle("Grade Calculator");
 
             Parent startRoot = FXMLLoader.load(Objects.requireNonNull(
-                    getClass().getResource("/fxml/StartFXML.fxml")));
+                    getClass().getResource("/fxml/GradeCalculator.fxml")));
 
             Scene startScene = new Scene(startRoot);
             startScene.getStylesheets().add("/css/styles.css");

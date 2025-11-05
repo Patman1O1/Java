@@ -18,88 +18,111 @@ public class ItemTests {
     /* ---------------------------------------------Constructor Tests------------------------------------------------ */
     @Test
     protected void constructors__defaultConstructor() {
-        ItemTests.item = new Item();
+        item = new Item();
 
-        assertEquals("", ItemTests.item.getName());
-        assertEquals(0.0, ItemTests.item.getGrade(), ItemTests.EPSILON);
+        assertEquals("", item.getName());
+        assertEquals(0.0, item.getEarnedPoints(), EPSILON);
+        assertEquals(1.0, item.getTotalPoints(), EPSILON);
     }
 
     @Test
     protected void constructors__twoParameterConstructor__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
+        assertDoesNotThrow(() -> item = new Item("Item", 98.0));
 
-        assertEquals("Item", ItemTests.item.getName());
-        assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
+        assertEquals("Item", item.getName());
+        assertEquals(98.0, item.getEarnedPoints(), EPSILON);
+        assertEquals(100.0, item.getTotalPoints(), EPSILON);
     }
 
     @Test
     protected void constructors__twoParameterConstructor__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", -1.0));
+        assertThrows(IllegalArgumentException.class, () -> item = new Item("Item", -1.0));
     }
 
     @Test
     protected void constructors__threeParameterConstructor__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 98.0, 100.0));
+        assertDoesNotThrow(() -> item = new Item("Item", 98.0, 100.0));
 
-        assertEquals("Item", ItemTests.item.getName());
-        assertEquals(0.98, ItemTests.item.getGrade(), ItemTests.EPSILON);
+        assertEquals("Item", item.getName());
+        assertEquals(98.0, item.getEarnedPoints(), EPSILON);
+        assertEquals(100.0, item.getTotalPoints(), EPSILON);
     }
 
     @Test
     protected void constructors__threeParameterConstructor__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", -1.0, 100.0));
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", -1.0, 1.0));
         assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", 0.0, -1.0));
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", 0.0, 0.0));
+        assertThrows(IllegalArgumentException.class, () -> ItemTests.item = new Item("Item", 1.0, 0.0));
     }
 
     /* -----------------------------------------------Setter Tests--------------------------------------------------- */
     @Test
     protected void setters__setName__nonNull() {
-        ItemTests.item.setName("Item");
-        assertEquals("Item", ItemTests.item.getName());
+        item.setName("Item");
+        assertEquals("Item", item.getName());
     }
 
     @Test
     protected void setters__setName__null() {
-        ItemTests.item.setName(null);
-        assertEquals("", ItemTests.item.getName());
+        item.setName(null);
+        assertEquals("", item.getName());
     }
 
     @Test
-    protected void setters__setGrade__singleParameter__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item.setGrade(1.0));
-        assertDoesNotThrow(() -> ItemTests.item.setGrade(0.0));
+    protected void setters__setEarnedPoints__validArguments() {
+        assertDoesNotThrow(() -> item.setEarnedPoints(100.0));
+        assertDoesNotThrow(() -> item.setEarnedPoints(0.0001));
     }
 
     @Test
-    protected void setters__setGrade__singleParameter__invalidArgument() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(-1.0));
+    protected void setters__setEarnedPoints__invalidArguments() {
+        assertThrows(IllegalArgumentException.class, () -> item.setEarnedPoints(-0.0001));
+        assertThrows(IllegalArgumentException.class, () -> item.setEarnedPoints(-100.0));
     }
 
     @Test
-    protected void setters__setGrade__twoParameters__validArguments() {
-        assertDoesNotThrow(() -> ItemTests.item.setGrade(90.93, 100.0));
-        assertDoesNotThrow(() -> ItemTests.item.setGrade(0.44444, 1.0));
+    protected void setters__setTotalPoints__validArguments() {
+        assertDoesNotThrow(() -> item.setTotalPoints(0.00001));
+        assertDoesNotThrow(() -> item.setTotalPoints(100.0));
     }
 
     @Test
-    protected void setters__setGrade__twoParameters__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(0.0, 0.0));
-        assertThrows(IllegalArgumentException.class, () -> ItemTests.item.setGrade(0.0, -1.0));
+    protected void setters__setTotalPoints__invalidArguments() {
+        assertThrows(IllegalArgumentException.class, () -> item.setTotalPoints(0.0));
+        assertThrows(IllegalArgumentException.class, () -> item.setTotalPoints(-0.0001));
+        assertThrows(IllegalArgumentException.class, () -> item.setTotalPoints(-100.0));
     }
 
     /* -----------------------------------------------Getter Tests--------------------------------------------------- */
     @Test
-    protected void getters__getGrade() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 0.99994));
-        assertEquals(0.99994, ItemTests.item.getGrade(), ItemTests.EPSILON);
+    protected void getters__getName__noNull() {
+        item = new Item("Item", 100.0);
+        assertEquals("Item", item.getName());
+    }
+
+    @Test
+    protected void getters__getName__null() {
+        item = new Item(null, 100.0);
+        assertEquals("", item.getName());
+    }
+
+    @Test
+    protected void getters__getEarnedPoints() {
+        item = new Item("Item", 0.1 + 0.2);
+        assertEquals(0.3, item.getEarnedPoints(), EPSILON);
+    }
+
+    @Test
+    protected void getters__getTotalPoints() {
+        item = new Item("Item", 0.1, 0.1 + 0.2);
+        assertEquals(0.3, item.getTotalPoints(), EPSILON);
     }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
     @Test
     protected void methods__toString() {
-        assertDoesNotThrow(() -> ItemTests.item = new Item("Item", 100.0, 100.0));
-        assertEquals("Item", ItemTests.item.toString());
+        assertDoesNotThrow(() -> item = new Item("Item", 100.0, 100.0));
+        assertEquals("Item", item.toString());
     }
 
     @Test

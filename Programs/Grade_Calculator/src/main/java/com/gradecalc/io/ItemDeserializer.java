@@ -17,10 +17,13 @@ public class ItemDeserializer extends JsonDeserializer<Item> {
         // Read the item's name
         String itemName = jsonNode.get("name").asText();
 
-        // Read the item's grade
-        double itemGrade = jsonNode.get("grade").asDouble();
+        // Read the item's earned points
+        double earnedPoints = jsonNode.get("earnedPoints").asDouble();
+
+        // Read the item's total points
+        double totalPoints = jsonNode.get("totalPoints").asDouble();
 
         // Create a new instance of the item with the data
-        return new Item(itemName, itemGrade);
+        return new Item(itemName, earnedPoints, totalPoints);
     }
 }

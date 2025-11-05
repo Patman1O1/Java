@@ -22,8 +22,14 @@ public class ItemSerializer extends JsonSerializer<Item> {
         // Create the name field
         jsonGenerator.writeStringField("name", item.getName());
 
+        // Create the earned points field
+        jsonGenerator.writeNumberField("earnedPoints", item.getEarnedPoints());
+
+        // Create the total points field
+        jsonGenerator.writeNumberField("totalPoints", item.getTotalPoints());
+
         // Create the grade field
-        jsonGenerator.writeNumberField("grade", item.getGrade());
+        jsonGenerator.writeNumberField("grade", item.calculateGrade());
 
         // Stop writing to the .json file
         jsonGenerator.writeEndObject();

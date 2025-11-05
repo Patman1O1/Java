@@ -146,7 +146,7 @@ public class Course {
 
             // Sum the weighted grade of the current item with weighted grade sum
             double weight = category.getWeight();
-            weightedGradeSum += category.getGrade() * weight;
+            weightedGradeSum += category.calculateGrade() * weight;
             totalWeights += weight;
         }
 

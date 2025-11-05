@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.gradecalc.Category;
 import com.gradecalc.Item;
+import com.gradecalc.data.PHYS142;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,273 +17,155 @@ public class CategoryTests {
 
     private static Category category;
 
-    public static final Item[] lectureItems = {
-            new Item("Lecture 1.2", 2.25, 4.00),
-            new Item("Lecture 2.2", 2.75, 3.00),
-            new Item("Lecture 3.1", 1.50, 3.00),
-            new Item("Lecture 3.2", 2.25, 3.00),
-            new Item("Lecture 4.1", 2.50, 4.00),
-            new Item("Lecture 4.2", 2.50, 3.00),
-            new Item("Lecture 5.1", 0.00, 3.00),
-            new Item("Lecture 5.2", 3.75, 4.00),
-            new Item("Lecture 6.1", 1.00, 3.00),
-            new Item("Lecture 6.2", 3.00, 4.00),
-            new Item("Lecture 7.1", 3.00, 4.00),
-            new Item("Lecture 7.2", 1.75, 3.00),
-            new Item("Lecture 8.1", 2.50, 3.00),
-            new Item("Lecture 8.2", 3.75, 4.00),
-            new Item("Lecture 9.1", 0.75, 3.00),
-            new Item("Lecture 9.2", 3.75, 4.00),
-            new Item("Lecture 10.1", 2.25, 3.00),
-            new Item("Lecture 10.2", 2.75, 4.00),
-            new Item("Lecture 11.1", 2.25, 3.00),
-            new Item("Lecture 11.2", 1.75, 3.00),
-            new Item("Lecture 12.1", 3.00, 4.00),
-            new Item("Lecture 12.2", 1.75, 3.00),
-            new Item("Lecture 13.1", 2.50, 3.00),
-            new Item("Lecture 13.2", 3.50, 4.00),
-            new Item("Lecture 14.1", 2.50, 3.00),
-            new Item("Lecture 14.2", 1.0, 1.0),
-            new Item("Lecture 15.1", 2.25, 3.00),
-            new Item("Lecture 15.2", 1.50, 3.00)
-    };
-
-    public static final Item[] groupProblemItems = {
-            new Item("Group Problems 1", 2.00, 4.00),
-            new Item("Group Problems 2", 2.00, 3.00),
-            new Item("Group Problems 3", 3.00, 5.00),
-            new Item("Group Problems 4", 1.0, 1.0),
-            new Item("Group Problems 5", 4.00, 5.00),
-            new Item("Group Problems 6", 4.00, 5.00),
-            new Item("Group Problems 7", 1.0, 1.0),
-            new Item("Group Problems 8", 3.00, 5.00),
-            new Item("Group Problems 9", 1.0, 1.0),
-            new Item("Group Problems 10", 1.0, 1.0),
-            new Item("Group Problems 11", 4.00, 5.00),
-            new Item("Group Problems 12", 2.00, 4.00),
-            new Item("Group Problems 13", 4.00, 6.00),
-            new Item("Group Problems 14", 3.00, 4.00),
-            new Item("Group Problems 15", 2.00, 4.00)
-    };
-
-    public static final Item[] onlineHWItems = {
-            new Item("Online HW 1", 0.0),
-            new Item("Online HW 2", 0.95),
-            new Item("Online HW 3", 0.90),
-            new Item("Online HW 4", 0.9333),
-            new Item("Online HW 5", 0.6889),
-            new Item("Online HW 6", 0.9445),
-            new Item("Online HW 7", 0.8333),
-            new Item("Online HW 8", 0.9667),
-            new Item("Online HW 9", 0.0),
-            new Item("Online HW 10", 0.6133),
-            new Item("Online HW 11", 0.7614),
-            new Item("Online HW 12", 1.0),
-            new Item("Online HW 13", 0.9167),
-            new Item("Online HW 14", 0.9953),
-            new Item("Online HW 15", 0.0),
-    };
-
-    public static final Item[] writtenHWItems = {
-            new Item("Written HW 0", 14.0, 20.0),
-            new Item("Written HW 1", 17.0, 20.0),
-            new Item("Written HW 2", 18.0, 20.0),
-            new Item("Written HW 3", 16.50, 20.0),
-            new Item("Written HW 4", 19.0, 20.0),
-            new Item("Written HW 5", 0.0, 20.0),
-            new Item("Written HW 6", 15.0, 20.0),
-            new Item("Written HW 7", 1.0),
-            new Item("Written HW 8", 19.0, 20.0),
-            new Item("Written HW 9", 0.0, 20.0),
-            new Item("Written HW 10", 1.0),
-            new Item("Written HW 11", 0.0, 20.0),
-            new Item("Written HW 12", 18.0, 20.0),
-            new Item("Written HW 13", 1.0),
-            new Item("Written HW 14", 18.0, 20.0)
-    };
-
-    public static final Item[] quizItems = {
-            new Item("Quiz 1", 6.0, 20.0),
-            new Item("Quiz 2", 13.0, 20.0),
-            new Item("Quiz 3", 14.0, 20.0),
-            new Item("Quiz 4", 5.0, 20.0),
-            new Item("Quiz 5", 17.0, 20.0),
-            new Item("Quiz 6", 8.0, 20.0),
-            new Item("Quiz 7", 0.0, 20.0),
-            new Item("Quiz 8", 5.0, 20.0),
-            new Item("Quiz 9", 9.0, 20.0),
-            new Item("Quiz 10", 10.0, 20.0),
-            new Item("Quiz 11", 3.0, 20.0),
-            new Item("Quiz 12", 4.0, 20.0)
-    };
-
-    public static final Item[] prelabItems = {
-            new Item("Prelab 1", 1.0),
-            new Item("Prelab 2", 1.5, 4.0),
-            new Item("Prelab 3", 3.25, 4.0),
-            new Item("Prelab 4", 3.5, 4.0),
-            new Item("Prelab 5", 0.0, 4.0),
-            new Item("Prelab 6", 3.25, 4.0),
-            new Item("Prelab 7", 3.8, 4.0),
-            new Item("Prelab 8", 0.0, 4.0),
-            new Item("Prelab 9", 3.5, 4.0),
-            new Item("Prelab 10", 1.0)
-    };
-
-    public static final Item[] labItems = {
-            new Item("Lab 1", 14.25, 16.0),
-            new Item("Lab 2", 0.0, 16.0),
-            new Item("Lab 3", 14.95, 16.0),
-            new Item("Lab 4", 14.0, 16.0),
-            new Item("Lab 5", 15.0, 16.0),
-            new Item("Lab 6", 14.0, 16.0),
-            new Item("Lab 7", 0.0, 16.0),
-            new Item("Lab 8", 0.0, 16.0),
-            new Item("Lab 9", 13.55, 16.0),
-            new Item("Lab 10", 0.0, 16.0)
-    };
-
-    public static final Item[] examItems = {
-            new Item("Exam 1", 61.0, 100.0),
-            new Item("Exam 2", 54.5, 100.0),
-            new Item("Exam 3", 0.0, 100.0)
-    };
-
     /* --------------------------------------------------SetUp------------------------------------------------------- */
     @BeforeEach
-    protected void setUp() { CategoryTests.category = new Category(); }
+    protected void setUp() { category = new Category(); }
 
     /* ---------------------------------------------Constructor Tests------------------------------------------------ */
     @Test
     protected void constructors__defaultConstructor() {
-        CategoryTests.category = new Category();
+        category = new Category();
 
-        assertEquals("", CategoryTests.category.getName());
-        assertEquals(0.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("", category.getName());
+        assertEquals(0.0, category.getWeight(), EPSILON);
     }
 
     @Test
     protected void constructors__nameConstructor__nonNullName() {
-        CategoryTests.category = new Category("Category");
+        category = new Category("Category");
 
-        assertEquals("Category", CategoryTests.category.getName());
-        assertEquals(0.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Category", category.getName());
+        assertEquals(0.0, category.getWeight(), EPSILON);
     }
 
     @Test
     protected void constructors__nameConstructor__nullName() {
-        CategoryTests.category = new Category(null);
+        category = new Category(null);
 
-        assertEquals("", CategoryTests.category.getName());
-        assertEquals(0.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("", category.getName());
+        assertEquals(0.0, category.getWeight(), EPSILON);
     }
 
     @Test
     protected void constructors__nameAndWeightConstructor__nonNullName__validWeight() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Category", 30.0));
+        assertDoesNotThrow(() -> category = new Category("Category", 30.0));
 
-        assertEquals("Category", CategoryTests.category.getName());
-        assertEquals(30.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Category", category.getName());
+        assertEquals(30.0, category.getWeight(), EPSILON);
     }
 
     @Test
     protected void constructors__nameAndWeightConstructor__invalidArguments() {
-        assertThrows(IllegalArgumentException.class, () -> CategoryTests.category = new Category("Category", -1.0));
+        assertThrows(IllegalArgumentException.class, () -> new Category("Category", -1.0));
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__lectureItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Lectures", 0.10, Arrays.asList(CategoryTests.lectureItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142LectureItems() {
+        assertDoesNotThrow(() -> category = new Category("Lectures", 0.10, Arrays.asList(PHYS142.lectureItems)));
 
-        assertEquals("Lectures", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Lectures", category.getName());
+        assertEquals(0.10, category.getWeight(), EPSILON);
 
-        for (Item lecture : CategoryTests.lectureItems) {
-            assertTrue(CategoryTests.category.containsItem(lecture.getName()));
+        List<Item> lectureList = Arrays.asList(PHYS142.lectureItems);
+
+        for (Item lecture : category.getItems()) {
+            assertTrue(lectureList.contains(lecture));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__groupProblemItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Group Problems", 0.10, Arrays.asList(CategoryTests.groupProblemItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142GroupProblemItems() {
+        assertDoesNotThrow(() -> new Category("Group Problems", 0.10, Arrays.asList(PHYS142.groupProblemItems)));
 
-        assertEquals("Group Problems", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Group Problems", PHYS142.groupProblems.getName());
+        assertEquals(0.10, PHYS142.groupProblems.getWeight(), EPSILON);
 
-        for (Item groupProblem : CategoryTests.groupProblemItems) {
-            assertTrue(CategoryTests.category.containsItem(groupProblem.getName()));
+        List<Item> groupProblemList = Arrays.asList(PHYS142.groupProblemItems);
+
+        for (Item groupProblem : category.getItems()) {
+            assertTrue(groupProblemList.contains(groupProblem));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__onlineHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Online HW", 0.075, Arrays.asList(CategoryTests.onlineHWItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142OnlineHWItems() {
+        assertDoesNotThrow(() -> category = new Category("Online HW", 0.075, Arrays.asList(PHYS142.onlineHWItems)));
 
-        assertEquals("Online HW", CategoryTests.category.getName());
-        assertEquals(0.075, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Online HW", category.getName());
+        assertEquals(0.075, category.getWeight(), EPSILON);
 
-        for (Item hw : CategoryTests.onlineHWItems) {
-            assertTrue(CategoryTests.category.containsItem(hw.getName()));
+        List<Item> onlineHWList = Arrays.asList(PHYS142.onlineHWItems);
+
+        for (Item hw : category.getItems()) {
+            assertTrue(onlineHWList.contains(hw));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__writtenHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Written HW", 0.075, Arrays.asList(CategoryTests.writtenHWItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142WrittenHWItems() {
+        assertDoesNotThrow(() -> category = new Category("Written HW", 0.075, Arrays.asList(PHYS142.writtenHWItems)));
 
-        assertEquals("Written HW", CategoryTests.category.getName());
-        assertEquals(0.075, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Written HW", category.getName());
+        assertEquals(0.075, category.getWeight(), EPSILON);
 
-        for (Item hw : CategoryTests.writtenHWItems) {
-            assertTrue(CategoryTests.category.containsItem(hw.getName()));
+        List<Item> writtenHWList = Arrays.asList(PHYS142.writtenHWItems);
+
+        for (Item hw : category.getItems()) {
+            assertTrue(writtenHWList.contains(hw));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__quizItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Quizzes", 0.10, Arrays.asList(CategoryTests.quizItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142QuizItems() {
+        assertDoesNotThrow(() -> category = new Category("Quizzes", 0.10, Arrays.asList(PHYS142.quizItems)));
 
-        assertEquals("Quizzes", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Quizzes", category.getName());
+        assertEquals(0.10, category.getWeight(), EPSILON);
 
-        for (Item quiz : CategoryTests.quizItems) {
-            assertTrue(CategoryTests.category.containsItem(quiz.getName()));
+        List<Item> quizList = Arrays.asList(PHYS142.quizItems);
+
+        for (Item quiz : category.getItems()) {
+            assertTrue(quizList.contains(quiz));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__prelabItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Prelabs", 0.02, Arrays.asList(CategoryTests.prelabItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142PrelabItems() {
+        assertDoesNotThrow(() -> category = new Category("Prelabs", 0.02, Arrays.asList(PHYS142.prelabItems)));
 
-        assertEquals("Prelabs", CategoryTests.category.getName());
-        assertEquals(0.02, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Prelabs", category.getName());
+        assertEquals(0.02, category.getWeight(), EPSILON);
 
-        for (Item prelab : CategoryTests.prelabItems) {
-            assertTrue(CategoryTests.category.containsItem(prelab.getName()));
+        List<Item> prelabList = Arrays.asList(PHYS142.prelabItems);
+
+        for (Item prelab : category.getItems()) {
+            assertTrue(prelabList.contains(prelab));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__labItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Labs", 0.08, Arrays.asList(CategoryTests.labItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142LabItems() {
+        assertDoesNotThrow(() -> category = new Category("Labs", 0.08, Arrays.asList(PHYS142.labItems)));
 
-        assertEquals("Labs", CategoryTests.category.getName());
-        assertEquals(0.08, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Labs", category.getName());
+        assertEquals(0.08, category.getWeight(), EPSILON);
 
-        for (Item lab : CategoryTests.labItems) {
-            assertTrue(CategoryTests.category.containsItem(lab.getName()));
+        List<Item> labList = Arrays.asList(PHYS142.labItems);
+
+        for (Item lab : category.getItems()) {
+            assertTrue(labList.contains(lab));
         }
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsConstructor__examItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Exams", 0.45, Arrays.asList(CategoryTests.examItems)));
+    protected void constructors__nameWeightAndItemsConstructor__phys142ExamItems() {
+        assertDoesNotThrow(() -> new Category("Exams", 0.45, Arrays.asList(PHYS142.examItems)));
 
-        assertEquals("Exams", CategoryTests.category.getName());
-        assertEquals(0.45, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertEquals("Exams", PHYS142.exams.getName());
+        assertEquals(0.45, PHYS142.exams.getWeight(), EPSILON);
 
-        for (Item exam : CategoryTests.examItems) {
-            assertTrue(CategoryTests.category.containsItem(exam.getName()));
+        for (Item exam : PHYS142.examItems) {
+            assertTrue(PHYS142.exams.containsItem(exam.getName()));
         }
     }
 
@@ -291,199 +175,199 @@ public class CategoryTests {
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__lectureItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Lectures", 0.10, Arrays.asList(CategoryTests.lectureItems), 2));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142LectureItems() {
+        assertDoesNotThrow(() -> new Category("Lectures", 0.10, Arrays.asList(PHYS142.lectureItems), 2));
 
-        assertEquals("Lectures", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(2, CategoryTests.category.countDrops());
+        assertEquals("Lectures", PHYS142.lectures.getName());
+        assertEquals(0.10, PHYS142.lectures.getWeight(), EPSILON);
+        assertEquals(2, PHYS142.lectures.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__groupProblemItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Group Problems", 0.10, Arrays.asList(CategoryTests.groupProblemItems), 1));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142GroupProblemItems() {
+        assertDoesNotThrow(() -> new Category("Group Problems", 0.10, Arrays.asList(PHYS142.groupProblemItems), 1));
 
-        assertEquals("Group Problems", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(1, CategoryTests.category.countDrops());
+        assertEquals("Group Problems", PHYS142.groupProblems.getName());
+        assertEquals(0.10, PHYS142.groupProblems.getWeight(), EPSILON);
+        assertEquals(1, PHYS142.groupProblems.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__onlineHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Online HW", 0.075, Arrays.asList(CategoryTests.onlineHWItems), 1));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142OnlineHWItems() {
+        assertDoesNotThrow(() -> new Category("Online HW", 0.075, Arrays.asList(PHYS142.onlineHWItems), 1));
 
-        assertEquals("Online HW", CategoryTests.category.getName());
-        assertEquals(0.075, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(1, CategoryTests.category.countDrops());
+        assertEquals("Online HW", PHYS142.onlineHW.getName());
+        assertEquals(0.075, PHYS142.onlineHW.getWeight(), EPSILON);
+        assertEquals(1, PHYS142.onlineHW.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__writtenHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Written HW", 0.075, Arrays.asList(CategoryTests.writtenHWItems), 1));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142WrittenHWItems() {
+        assertDoesNotThrow(() -> new Category("Written HW", 0.075, Arrays.asList(PHYS142.writtenHWItems), 1));
 
-        assertEquals("Written HW", CategoryTests.category.getName());
-        assertEquals(0.075, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(1, CategoryTests.category.countDrops());
+        assertEquals("Written HW", PHYS142.writtenHW.getName());
+        assertEquals(0.075, PHYS142.writtenHW.getWeight(), EPSILON);
+        assertEquals(1, PHYS142.writtenHW.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__quizItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Quizzes", 0.10, Arrays.asList(CategoryTests.quizItems), 1));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142QuizItems() {
+        assertDoesNotThrow(() -> new Category("Quizzes", 0.10, Arrays.asList(PHYS142.quizItems), 1));
 
-        assertEquals("Quizzes", CategoryTests.category.getName());
-        assertEquals(0.10, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(1, CategoryTests.category.countDrops());
+        assertEquals("Quizzes", PHYS142.quizzes.getName());
+        assertEquals(0.10, PHYS142.quizzes.getWeight(), EPSILON);
+        assertEquals(1, PHYS142.quizzes.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__prelabItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Prelabs", 0.02, Arrays.asList(CategoryTests.prelabItems), 1));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142PrelabItems() {
+        assertDoesNotThrow(() -> new Category("Prelabs", 0.02, Arrays.asList(PHYS142.prelabItems), 1));
 
-        assertEquals("Prelabs", CategoryTests.category.getName());
-        assertEquals(0.02, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(1, CategoryTests.category.countDrops());
+        assertEquals("Prelabs", PHYS142.prelabs.getName());
+        assertEquals(0.02, PHYS142.prelabs.getWeight(), EPSILON);
+        assertEquals(1, PHYS142.prelabs.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__labItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Labs", 0.08, Arrays.asList(CategoryTests.labItems), 2));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142LabItems() {
+        assertDoesNotThrow(() -> new Category("Labs", 0.08, Arrays.asList(PHYS142.labItems), 2));
 
-        assertEquals("Labs", CategoryTests.category.getName());
-        assertEquals(0.08, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(2, CategoryTests.category.countDrops());
+        assertEquals("Labs", PHYS142.labs.getName());
+        assertEquals(0.08, PHYS142.labs.getWeight(), EPSILON);
+        assertEquals(2, PHYS142.labs.countDrops());
     }
 
     @Test
-    protected void constructors__nameWeightAndItemsWithDropsConstructor__examItems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Exams", 0.45, Arrays.asList(CategoryTests.examItems), 0));
+    protected void constructors__nameWeightAndItemsWithDropsConstructor__phys142ExamItems() {
+        assertDoesNotThrow(() -> new Category("Exams", 0.45, Arrays.asList(PHYS142.examItems), 0));
 
-        assertEquals("Exams", CategoryTests.category.getName());
-        assertEquals(0.45, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
-        assertEquals(0, CategoryTests.category.countDrops());
+        assertEquals("Exams", PHYS142.exams.getName());
+        assertEquals(0.45, PHYS142.exams.getWeight(), EPSILON);
+        assertEquals(0, PHYS142.exams.countDrops());
     }
 
     /* -----------------------------------------------Setter Tests--------------------------------------------------- */
     @Test
     protected void setters__setName__nonNullName() {
-        CategoryTests.category.setName("Category");
-        assertEquals("Category", CategoryTests.category.getName());
+        category.setName("Category");
+        assertEquals("Category", category.getName());
     }
 
     @Test
     protected void setters__setName__nullName() {
         CategoryTests.category.setName(null);
-        assertEquals("", CategoryTests.category.getName());
+        assertEquals("", category.getName());
     }
 
     @Test
     protected void setters__setWeight__validArgument() {
-        assertDoesNotThrow(() -> CategoryTests.category.setWeight(30.0));
-        assertEquals(30.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        assertDoesNotThrow(() -> category.setWeight(30.0));
+        assertEquals(30.0, category.getWeight(), EPSILON);
     }
 
     @Test
     protected void setters__setWeight__invalidArgument() {
-        assertThrows(IllegalArgumentException.class, () -> CategoryTests.category.setWeight(-1.0));
+        assertThrows(IllegalArgumentException.class, () -> category.setWeight(-1.0));
     }
 
     @Test
-    protected void setters__setItems__lectureItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.lectureItems)));
-        for (Item lecture : CategoryTests.lectureItems) {
-            assertTrue(CategoryTests.category.containsItem(lecture.getName()));
+    protected void setters__setItems__phys142LectureItems() {
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.lectureItems)));
+        for (Item lecture : PHYS142.lectureItems) {
+            assertTrue(category.containsItem(lecture.getName()));
         }
     }
 
     @Test
-    protected void setters__setItems__groupProblemItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.groupProblemItems)));
-        for (Item groupProblem : CategoryTests.groupProblemItems) {
+    protected void setters__setItems__phys142GroupProblemItems() {
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.groupProblemItems)));
+        for (Item groupProblem : PHYS142.groupProblemItems) {
             assertTrue(CategoryTests.category.containsItem(groupProblem.getName()));
         }
     }
 
     @Test
-    protected void setters__setItems__onlineHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.onlineHWItems)));
-        for (Item onlineHW : CategoryTests.onlineHWItems) {
-            assertTrue(CategoryTests.category.containsItem(onlineHW.getName()));
+    protected void setters__setItems__phys142OnlineHWItems() {
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.onlineHWItems)));
+        for (Item onlineHW : PHYS142.onlineHWItems) {
+            assertTrue(category.containsItem(onlineHW.getName()));
         }
     }
 
     @Test
-    protected void setters__setItems__writtenHWItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.writtenHWItems)));
-        for (Item writtenHW : CategoryTests.writtenHWItems) {
-            assertTrue(CategoryTests.category.containsItem(writtenHW.getName()));
+    protected void setters__setItems__phys142WrittenHWItems() {
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.writtenHWItems)));
+        for (Item writtenHW : PHYS142.writtenHWItems) {
+            assertTrue(category.containsItem(writtenHW.getName()));
         }
     }
 
     @Test
-    protected void setters__setItems__quizItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.quizItems)));
-        for (Item quiz : CategoryTests.quizItems) {
-            assertTrue(CategoryTests.category.containsItem(quiz.getName()));
+    protected void setters__setItems__phys142QuizItems() {
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.quizItems)));
+        for (Item quiz : PHYS142.quizItems) {
+            assertTrue(category.containsItem(quiz.getName()));
         }
     }
 
     @Test
     protected void setters__setItems__prelabItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.prelabItems)));
-        for (Item prelab : CategoryTests.prelabItems) {
-            assertTrue(CategoryTests.category.containsItem(prelab.getName()));
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.prelabItems)));
+        for (Item prelab : PHYS142.prelabItems) {
+            assertTrue(category.containsItem(prelab.getName()));
         }
     }
 
     @Test
     protected void setters__setItems__labItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.labItems)));
-        for (Item lab : CategoryTests.labItems) {
-            assertTrue(CategoryTests.category.containsItem(lab.getName()));
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.labItems)));
+        for (Item lab : PHYS142.labItems) {
+            assertTrue(category.containsItem(lab.getName()));
         }
     }
 
     @Test
     protected void setters__setItems__examItems() {
-        assertDoesNotThrow(() -> CategoryTests.category.setItems(Arrays.asList(CategoryTests.examItems)));
-        for (Item exam : CategoryTests.examItems) {
-            assertTrue(CategoryTests.category.containsItem(exam.getName()));
+        assertDoesNotThrow(() -> category.setItems(Arrays.asList(PHYS142.examItems)));
+        for (Item exam : PHYS142.examItems) {
+            assertTrue(category.containsItem(exam.getName()));
         }
     }
 
     @Test
     protected void setters__setItems__null() {
-        assertThrows(NullPointerException.class, () -> CategoryTests.category.setItems(null));
+        assertThrows(NullPointerException.class, () -> category.setItems(null));
     }
 
     /* -----------------------------------------------Getter Tests--------------------------------------------------- */
     @Test
     protected void getters__getName() {
-        CategoryTests.category.setName("Category");
-        assertEquals("Category", CategoryTests.category.getName());
+        category.setName("Category");
+        assertEquals("Category", category.getName());
     }
 
     @Test
     protected void getters__getWeight() {
-        CategoryTests.category.setWeight(30.0);
-        assertEquals(30.0, CategoryTests.category.getWeight(), CategoryTests.EPSILON);
+        category.setWeight(30.0);
+        assertEquals(30.0, category.getWeight(), EPSILON);
     }
 
     @Test
-    protected void getters__getItem__nullItem() { assertNull(CategoryTests.category.getItem(null)); }
+    protected void getters__getItem__nullItem() { assertNull(category.getItem(null)); }
 
     @Test
     protected void getters__getItem__noItems() {
         Item item = new Item("Item", 98.3432);
-        assertNull(CategoryTests.category.getItem(item.getName()));
+        assertNull(category.getItem(item.getName()));
     }
 
     @Test
     protected void getters__getItem__doesNotContainItem() {
         Item item = new Item("Item", 98.3432);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
+        assertDoesNotThrow(() -> category.addItem(item));
 
         Item otherItem = new Item("Other Item", 34.3332);
-        assertNull(CategoryTests.category.getItem(otherItem.getName()));
+        assertNull(category.getItem(otherItem.getName()));
     }
 
     @Test
@@ -492,134 +376,104 @@ public class CategoryTests {
         Item item2 = new Item("Item", 13.433);
         Item item3 = new Item("Item", 98.453);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item2));
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item3));
+        assertDoesNotThrow(() -> category.addItem(item1));
+        assertDoesNotThrow(() -> category.addItem(item2));
+        assertDoesNotThrow(() -> category.addItem(item3));
 
-        assertDoesNotThrow(() -> CategoryTests.category.drop());
-        assertEquals(item2, CategoryTests.category.getWorstItem());
-    }
-
-    @Test
-    protected void getters__getGrade__lectures() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Lectures", 0.10, Arrays.asList(CategoryTests.lectureItems), 2));
-
-        assertEquals(73.63782051282051, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__groupProblems() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Group Problems", 0.10, Arrays.asList(CategoryTests.groupProblemItems), 1));
-
-
-        assertEquals(76.3095238095238, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__onlineHW() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Online HW", 0.075, Arrays.asList(CategoryTests.onlineHWItems), 1));
-
-
-        assertEquals(75.02428571428572, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__writtenHW() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Written HW", 0.075, Arrays.asList(CategoryTests.writtenHWItems), 1));
-
-
-        assertEquals(76.60714285714285, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__quizzes() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Quizzes", 0.075, Arrays.asList(CategoryTests.quizItems), 1));
-
-
-        assertEquals(42.727272727272734, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__prelabs() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Prelabs", 0.02, Arrays.asList(CategoryTests.prelabItems), 1));
-
-
-        assertEquals(74.44444444444444, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__labs() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Labs", 0.08, Arrays.asList(CategoryTests.labItems), 2));
-
-
-        assertEquals(66.9921875, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
-    }
-
-    @Test
-    protected void getters__getGrade__exams() {
-        assertDoesNotThrow(() -> CategoryTests.category = new Category("Exams", 0.45, Arrays.asList(CategoryTests.examItems), 0));
-
-
-        assertEquals(38.5, CategoryTests.category.getGrade() * 100, CategoryTests.EPSILON);
+        assertDoesNotThrow(() -> category.drop());
+        assertEquals(item2, category.getWorstItem());
     }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
     @Test
     protected void methods__toString() {
-        CategoryTests.category.setName("Category");
-        assertEquals("Category", CategoryTests.category.toString());
+        category.setName("Category");
+        assertEquals("Category", category.toString());
     }
 
     @Test
     protected void methods__equals__trueCase() {
-        CategoryTests.category = new Category("Category");
+        category = new Category("Category");
         Category other = new Category("Category");
 
         Item item = new Item("Item", 99.33332);
-        CategoryTests.category.addItem(item);
+        category.addItem(item);
         other.addItem(item);
 
-        assertEquals(CategoryTests.category, other);
+        assertEquals(category, other);
     }
 
     @Test
     protected void methods__equals__falseCase__differentValues() {
-        CategoryTests.category = new Category("Category");
+        category = new Category("Category");
         Category other = new Category("Category");
 
-        CategoryTests.category.addItem(new Item("Item", 99.33332));
+        category.addItem(new Item("Item", 99.33332));
         other.addItem(new Item("Other Item", 99.33));
 
-        assertNotEquals(CategoryTests.category, other);
+        assertNotEquals(category, other);
     }
 
     @Test
-    protected void methods__equals__falseCase__differentTypes() {
-        Integer integer = 101;
+    protected void methods__calculateGrade__phys142Lectures() {
+        assertEquals(73.63782051282051, PHYS142.lectures.calculateGrade() * 100, EPSILON);
+    }
 
-        assertNotEquals(integer, CategoryTests.category);
+    @Test
+    protected void methods__calculateGrade__phys142GroupProblems() {
+        assertEquals(76.3095238095238, PHYS142.groupProblems.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142OnlineHW() {
+        assertEquals(75.02428571428572, PHYS142.onlineHW.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142WrittenHW() {
+        assertEquals(76.60714285714285, PHYS142.writtenHW.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142Quizzes() {
+        assertEquals(42.727272727272734, PHYS142.quizzes.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142Prelabs() {
+        assertEquals(74.44444444444444, PHYS142.prelabs.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142Labs() {
+        assertEquals(66.9921875, PHYS142.labs.calculateGrade() * 100, EPSILON);
+    }
+
+    @Test
+    protected void methods__calculateGrade__phys142Exams() {
+        assertEquals(38.5, PHYS142.exams.calculateGrade() * 100, EPSILON);
     }
 
     @Test
     protected void methods__addItem__validArgument() {
         Item item = new Item("Item", 84.433);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
+        assertDoesNotThrow(() -> category.addItem(item));
 
-        assertTrue(CategoryTests.category.containsItem(item.getName()));
+        assertTrue(category.containsItem(item.getName()));
     }
 
     @Test
     protected void methods__addItem__nullArgument() {
-        assertThrows(NullPointerException.class, () -> CategoryTests.category.addItem(null));
+        assertThrows(NullPointerException.class, () -> category.addItem(null));
     }
 
     @Test
     protected void methods__removeItem__validArgument() {
         Item item = new Item("Item", 93.9383);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertEquals(item, CategoryTests.category.removeItem(item));
-        assertEquals(0, CategoryTests.category.countItems());
+        assertDoesNotThrow(() -> category.addItem(item));
+        assertEquals(item, category.removeItem(item));
+        assertEquals(0, category.countItems());
     }
 
     @Test
@@ -627,111 +481,108 @@ public class CategoryTests {
         Item item = new Item("Item", 93.9383);
         Item otherItem = new Item("Other Item", 93.211);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertNull(CategoryTests.category.removeItem(otherItem));
-        assertEquals(1, CategoryTests.category.countItems());
+        assertDoesNotThrow(() -> category.addItem(item));
+        assertNull(category.removeItem(otherItem));
+        assertEquals(1, category.countItems());
     }
 
     @Test
-    protected void methods__removeItem__nullArgument() { assertNull(CategoryTests.category.removeItem(null)); }
+    protected void methods__removeItem__nullArgument() { assertNull(category.removeItem(null)); }
 
     @Test
     protected void methods__updateItem__validArgument() {
         Item item = new Item("Item", 98.333);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
+        assertDoesNotThrow(() -> category.addItem(item));
 
         Item newItem = new Item("Item", 99.333);
-        assertDoesNotThrow(() -> CategoryTests.category.updateItem(newItem));
-        assertEquals(newItem, CategoryTests.category.getItem(newItem.getName()));
+        assertDoesNotThrow(() -> category.updateItem(newItem));
+        assertEquals(newItem, category.getItem(newItem.getName()));
     }
 
     @Test
     protected void methods__updateItem__nullArgument() {
-        assertThrows(NullPointerException.class, () -> CategoryTests.category.updateItem(null));
+        assertThrows(NullPointerException.class, () -> category.updateItem(null));
     }
 
     @Test
     protected void methods__updateItem__invalidArgument() {
-        Item item = new Item("Item", 99.333);
-        assertThrows(IllegalAccessError.class, () -> CategoryTests.category.updateItem(item));
+        assertThrows(IllegalAccessError.class, () -> category.updateItem(new Item("Item", 99.333)));
     }
 
     @Test
     protected void methods__containsItem__trueCase() {
         Item item = new Item("Item", 29.333);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
+        assertDoesNotThrow(() -> category.addItem(item));
 
-        assertTrue(CategoryTests.category.containsItem(item.getName()));
+        assertTrue(category.containsItem(item.getName()));
     }
 
     @Test
     protected void methods__containsItem__falseCase() {
         Item item = new Item("Item", 29.333);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
+        assertDoesNotThrow(() -> category.addItem(item));
 
-        assertFalse(CategoryTests.category.containsItem("Other Item"));
+        assertFalse(category.containsItem("Other Item"));
     }
 
     @Test
-    protected void methods__containsItem__falseCase__nullItemName() {
-        assertFalse(CategoryTests.category.containsItem(null));
-    }
+    protected void methods__containsItem__falseCase__nullItemName() { assertFalse(category.containsItem(null)); }
 
     @Test
     protected void methods__countItems() {
-        assertEquals(0, CategoryTests.category.countItems());
+        assertEquals(0, category.countItems());
 
         Item item1 = new Item("Item 1", 92.3332);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
-        assertEquals(1, CategoryTests.category.countItems());
+        assertDoesNotThrow(() -> category.addItem(item1));
+        assertEquals(1, category.countItems());
 
         Item item2 = new Item("Item 2", 87.366452);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item2));
-        assertEquals(2, CategoryTests.category.countItems());
+        assertDoesNotThrow(() -> category.addItem(item2));
+        assertEquals(2, category.countItems());
     }
 
     @Test
     protected void methods__drop() {
         Item item1 = new Item("Item 1", 13.3321);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item1));
+        assertDoesNotThrow(() -> category.addItem(item1));
 
         Item item2 = new Item("Item 2", 99.3268);
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item2));
+        assertDoesNotThrow(() -> category.addItem(item2));
 
-        assertEquals(2, CategoryTests.category.countItems());
+        assertEquals(2, category.countItems());
 
-        assertDoesNotThrow(() -> CategoryTests.category.drop());
+        assertDoesNotThrow(() -> category.drop());
 
-        assertEquals(1, CategoryTests.category.countDrops());
-        assertEquals(1, CategoryTests.category.countItems());
-        assertFalse(CategoryTests.category.containsItem(item1.getName()));
-        assertEquals(item2, CategoryTests.category.getWorstItem());
+        assertEquals(1, category.countDrops());
+        assertEquals(1, category.countItems());
+        assertFalse(category.containsItem(item1.getName()));
+        assertEquals(item2, category.getWorstItem());
     }
 
     @Test
     protected void methods__undrop__nonNullCase() {
         Item item = new Item("Item", 3.567);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop());
-        assertEquals(item, CategoryTests.category.undrop());
+        assertDoesNotThrow(() -> category.addItem(item));
+        assertDoesNotThrow(() -> category.drop());
+        assertEquals(item, category.undrop());
     }
 
     @Test
-    protected void methods__undrop__nullCase() { assertNull(CategoryTests.category.undrop()); }
+    protected void methods__undrop__nullCase() { assertNull(category.undrop()); }
 
     @Test
     protected void methods__countDrops() {
         Item item = new Item("Item", 3.567);
         Item otherItem = new Item("Other Item", 0.999921);
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(item));
-        assertDoesNotThrow(() -> CategoryTests.category.drop());
+        assertDoesNotThrow(() -> category.addItem(item));
+        assertDoesNotThrow(() -> category.drop());
 
-        assertDoesNotThrow(() -> CategoryTests.category.addItem(otherItem));
-        assertDoesNotThrow(() -> CategoryTests.category.drop());
+        assertDoesNotThrow(() -> category.addItem(otherItem));
+        assertDoesNotThrow(() -> category.drop());
 
-        assertEquals(2, CategoryTests.category.countDrops());
+        assertEquals(2, category.countDrops());
     }
 
 }

@@ -23,11 +23,11 @@ public class CategorySerializer extends JsonSerializer<Category> {
         // Create the name field
         jsonGenerator.writeStringField("name", category.getName());
 
-        // Create the grade field
-        jsonGenerator.writeNumberField("grade", category.getGrade());
-
         // Create the weight field
         jsonGenerator.writeNumberField("weight", category.getWeight());
+
+        // Create the grade field
+        jsonGenerator.writeNumberField("grade", category.calculateGrade());
 
         // Create the items field
         jsonGenerator.writeArrayFieldStart("items");

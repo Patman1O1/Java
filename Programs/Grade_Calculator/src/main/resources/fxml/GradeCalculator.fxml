@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.TextFieldTableCell?>
+<?import com.sun.javafx.charts.Legend?>
+<?import com.sun.javafx.scene.control.FakeFocusTextField?>
+<BorderPane xmlns="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.gradecalc.gui.GradeCalculatorController"
+            fx:id="sceneRoot"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <MenuBar fx:id="menuBar">
+            <Menu fx:id="fileMenu" text="File">
+                <MenuItem fx:id="newItem" text="New" onAction="#handleNewCourse"/>
+                <SeparatorMenuItem/>
+                <MenuItem fx:id="openItem" text="Open" onAction="#handleOpenCourse"/>
+                <SeparatorMenuItem/>
+                <MenuItem fx:id="saveItem" text="Save" onAction="#handleSaveCourse"/>
+                <SeparatorMenuItem/>
+                <MenuItem fx:id="exitItem" text="Exit" onAction="#handleExit"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <SplitPane fx:id="splitPane">
+            <VBox fx:id="viewPane">
+                <TreeTableView fx:id="courseTableView">
+
+                </TreeTableView>
+            </VBox>
+
+            <VBox fx:id="editorPane">
+
+            </VBox>
+        </SplitPane>
+    </center>
+
+</BorderPane>

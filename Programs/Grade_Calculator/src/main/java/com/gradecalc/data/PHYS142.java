@@ -3,6 +3,9 @@ package com.gradecalc.data;
 import com.gradecalc.Category;
 import com.gradecalc.Course;
 import com.gradecalc.Item;
+import com.gradecalc.io.CourseFile;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 public class PHYS142 {
@@ -58,19 +61,19 @@ public class PHYS142 {
 
     public static final Item[] onlineHWItems = {
             new Item("Online HW 1", 0.0),
-            new Item("Online HW 2", 0.95),
-            new Item("Online HW 3", 0.90),
-            new Item("Online HW 4", 0.9333),
-            new Item("Online HW 5", 0.6889),
-            new Item("Online HW 6", 0.9445),
-            new Item("Online HW 7", 0.8333),
-            new Item("Online HW 8", 0.9667),
+            new Item("Online HW 2", 95.0),
+            new Item("Online HW 3", 90.0),
+            new Item("Online HW 4", 93.33),
+            new Item("Online HW 5", 68.89),
+            new Item("Online HW 6", 94.45),
+            new Item("Online HW 7", 83.33),
+            new Item("Online HW 8", 96.67),
             new Item("Online HW 9", 0.0),
-            new Item("Online HW 10", 0.6133),
-            new Item("Online HW 11", 0.7614),
-            new Item("Online HW 12", 1.0),
-            new Item("Online HW 13", 0.9167),
-            new Item("Online HW 14", 0.9953),
+            new Item("Online HW 10", 61.33),
+            new Item("Online HW 11", 76.14),
+            new Item("Online HW 12", 100.0),
+            new Item("Online HW 13", 91.67),
+            new Item("Online HW 14", 99.53),
             new Item("Online HW 15", 0.0),
     };
 
@@ -82,13 +85,13 @@ public class PHYS142 {
             new Item("Written HW 4", 19.0, 20.0),
             new Item("Written HW 5", 0.0, 20.0),
             new Item("Written HW 6", 15.0, 20.0),
-            new Item("Written HW 7", 1.0),
+            new Item("Written HW 7", 20.0, 20.0),
             new Item("Written HW 8", 19.0, 20.0),
             new Item("Written HW 9", 0.0, 20.0),
-            new Item("Written HW 10", 1.0),
+            new Item("Written HW 10", 20.0, 20.0),
             new Item("Written HW 11", 0.0, 20.0),
             new Item("Written HW 12", 18.0, 20.0),
-            new Item("Written HW 13", 1.0),
+            new Item("Written HW 13", 4.0, 4.0),
             new Item("Written HW 14", 18.0, 20.0)
     };
 
@@ -108,7 +111,7 @@ public class PHYS142 {
     };
 
     public static final Item[] prelabItems = {
-            new Item("Prelab 1", 1.0),
+            new Item("Prelab 1", 4.0, 4.0),
             new Item("Prelab 2", 1.5, 4.0),
             new Item("Prelab 3", 3.25, 4.0),
             new Item("Prelab 4", 3.5, 4.0),
@@ -117,7 +120,7 @@ public class PHYS142 {
             new Item("Prelab 7", 3.8, 4.0),
             new Item("Prelab 8", 0.0, 4.0),
             new Item("Prelab 9", 3.5, 4.0),
-            new Item("Prelab 10", 1.0)
+            new Item("Prelab 10", 4.0, 4.0)
     };
 
     public static final Item[] labItems = {
@@ -171,7 +174,11 @@ public class PHYS142 {
     public static final Course course = new Course("PHYS 142", Arrays.asList(categories));
 
     /* -------------------------------------------------Main--------------------------------------------------------- */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        CourseFile courseFile = new CourseFile("courses/PHYS 142.json");
+        courseFile.write(course);
+        Course x = courseFile.read();
+
 
     }
 

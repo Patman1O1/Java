@@ -1,6 +1,7 @@
 package com.gradecalc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.gradecalc.io.ItemDeserializer;
@@ -15,48 +16,56 @@ public class Item {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("grade")
-    private double grade;
+    @JsonProperty("earnedPoints")
+    private double earnedPoints;
+
+    @JsonProperty("totalPoints")
+    private double totalPoints;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    public Item() { this.name = ""; this.grade = 0.0; }
+    public Item() { this.name = ""; this.earnedPoints = 0.0; this.totalPoints = 1.0; }
 
-    public Item(String name, double grade) throws IllegalArgumentException { this.setName(name); this.setGrade(grade); }
-
-    public Item(String name, double pointsEarned, double totalPoints) throws IllegalArgumentException {
+    public Item(String name, double earnedPoints) throws IllegalArgumentException {
         this.setName(name);
-        this.setGrade(pointsEarned, totalPoints);
+        this.setEarnedPoints(earnedPoints);
+        this.setTotalPoints(100.0);
+    }
+
+    public Item(String name, double earnedPoints, double totalPoints) throws IllegalArgumentException {
+        this.setName(name);
+        this.setEarnedPoints(earnedPoints);
+        this.setTotalPoints(totalPoints);
     }
 
     /* -------------------------------------------------Setters------------------------------------------------------ */
     public void setName(String name) { this.name = name != null ? name : ""; }
 
-    public void setGrade(double grade) throws IllegalArgumentException {
-        if (grade < 0.0) {
-            throw new IllegalArgumentException("\"grade\" cannot be negative");
+    public void setEarnedPoints(double earnedPoints) throws IllegalArgumentException {
+        if (earnedPoints < 0.0) {
+            throw new IllegalArgumentException("\"earnedPoints\" cannot be negative");
         }
 
-        this.grade = grade;
+        this.earnedPoints = earnedPoints;
     }
 
-    public void setGrade(double pointsEarned, double totalPoints) throws IllegalArgumentException {
-        if (pointsEarned < 0.0) {
-            throw new IllegalArgumentException("\"pointsEarned\" cannot be negative");
-        }
-
-        if (totalPoints <= 0.0) {
+    public void setTotalPoints(double totalPoints) throws IllegalArgumentException {
+        if (totalPoints < 0.0 || doubleEquals(totalPoints, 0.0)) {
             throw new IllegalArgumentException("\"totalPoints\" cannot be non-positive");
         }
 
-        this.grade = pointsEarned / totalPoints;
+        this.totalPoints = totalPoints;
     }
 
     /* -------------------------------------------------Getters------------------------------------------------------ */
     public String getName() { return this.name; }
 
-    public double getGrade() { return this.grade; }
+    public double getEarnedPoints() { return this.earnedPoints; }
+
+    public double getTotalPoints() { return this.totalPoints; }
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
+    private static boolean doubleEquals(double lhs, double rhs) { return Math.abs(lhs - rhs) < EPSILON; }
+
     @Override
     public String toString() { return this.name; }
 
@@ -66,19 +75,24 @@ public class Item {
             return false;
         }
 
-        return this.name.equals(other.name) && Math.abs(this.grade - other.grade) < Item.EPSILON;
+        return this.name.equals(other.name) && doubleEquals(this.calculateGrade(), other.calculateGrade());
     }
+
+    public double calculateGrade() { return this.earnedPoints / this.totalPoints; }
 
     public int compareTo(Item other) throws NullPointerException {
         if (other == null) {
             throw new NullPointerException("\"other\" cannot be null");
         }
 
-        if (Math.abs(this.grade - other.grade) < Item.EPSILON) {
+        double thisGrade = this.calculateGrade();
+        double otherGrade = other.calculateGrade();
+
+        if (doubleEquals(thisGrade, otherGrade)) {
             return 0;
         }
 
-        if (this.grade > other.grade) {
+        if (thisGrade > otherGrade) {
             return 1;
         }
 

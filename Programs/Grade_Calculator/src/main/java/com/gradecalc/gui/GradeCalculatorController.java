@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.TreeTableRowSkin;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,16 +22,18 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CourseController implements Initializable {
+public class GradeCalculatorController implements Initializable {
     /* --------------------------------------------------Fields------------------------------------------------------ */
+    private Stage stage;
+
     @FXML
     protected BorderPane sceneRoot;
 
     @FXML
-    protected VBox menuBarRoot;
+    protected MenuBar menuBar;
 
     @FXML
-    protected MenuBar menuBar;
+    protected Menu fileMenu;
 
     @FXML
     protected MenuItem newItem;
@@ -39,36 +42,38 @@ public class CourseController implements Initializable {
     protected MenuItem openItem;
 
     @FXML
+    protected MenuItem saveItem;
+
+    @FXML
     protected MenuItem exitItem;
 
     @FXML
-    protected Label courseNameLabel;
+    protected SplitPane splitPane;
 
     @FXML
-    protected Label courseGradeLabel;
+    protected VBox editorPane;
 
-    private FXMLLoader fxmlLoader;
+    @FXML
+    protected VBox viewPane;
 
-    private Stage stage;
+    @FXML
+    protected TreeTableView<Object> courseTableView;
+
+    private Course course;
 
     /* -----------------------------------------------Constructors--------------------------------------------------- */
-    public CourseController() {}
 
     /* -------------------------------------------------Methods------------------------------------------------------ */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
-    public void handleNewCourse() {
-        try {
+    protected void handleNewCourse() {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
-    public void handleOpenCourse() {
+    protected void handleOpenCourse() {
         // Create the file picker
         FileChooser fileChooser = new FileChooser();
 
@@ -83,17 +88,8 @@ public class CourseController implements Initializable {
 
         try {
             // Attempt to the read the course file and create a new Course object to store the information
-            Course course = courseFile.read();
-
-            this.courseNameLabel.setFont(Font.font("System", FontWeight.BOLD, 50));
-            this.courseNameLabel.setText(course.getName());
-            this.courseNameLabel.setAlignment(Pos.TOP_CENTER);
-
-            this.menuBarRoot.getChildren().add(this.courseNameLabel);
-
-            // Display the course information
-            //TreeItem<String>
-
+            this.course = courseFile.read();
+            showCourse();
         } catch (IOException e) {
             // Prompt the user that the JSON file they selected is invalid
             Alert alert = new Alert(Alert.AlertType.ERROR, "The selected JSON file is invalid", ButtonType.OK);
@@ -106,7 +102,26 @@ public class CourseController implements Initializable {
     }
 
     @FXML
-    public void handleExit() { Platform.exit(); }
+    protected void handleSaveCourse() {
 
+    }
+
+    @FXML
+    protected void handleExit() { Platform.exit(); }
+
+    private void showCourse() {
+        TreeItem<Object> root = new TreeItem<>(this.course);
+        root.setExpanded(true);
+
+        TreeTableColumn<Object, String> courseColumn = new TreeTableColumn<>(course.getName());
+        courseColumn.setPrefWidth(this.courseTableView.getWidth());
+        courseColumn.setResizable(false);
+
+
+        // Display the course information
+        //TreeItem<String>
+
+        this.courseTableView.getColumns().add(courseColumn);
+    }
 
 }

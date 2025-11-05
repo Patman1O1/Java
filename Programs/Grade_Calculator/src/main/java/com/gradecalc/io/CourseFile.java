@@ -14,8 +14,6 @@ public class CourseFile extends File {
 
     private JsonNode nameNode, gradeNode;
 
-
-
     /* -----------------------------------------------Constructors--------------------------------------------------- */
     public CourseFile(String pathname) throws NullPointerException, InvalidPathException { super(pathname); }
 

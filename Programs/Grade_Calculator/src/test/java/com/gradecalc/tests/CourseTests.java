@@ -1,163 +1,118 @@
 package com.gradecalc.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.gradecalc.Category;
 import com.gradecalc.Course;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.gradecalc.data.PHYS142;
+
 import java.util.*;
 
 public class CourseTests {
     /* --------------------------------------------------Fields------------------------------------------------------ */
     private static final double EPSILON = 1.0e-10;
 
-    private static final Category lectures = new Category("Lectures", 0.10, Arrays.asList(CategoryTests.lectureItems), 2);
-
-    private static final Category groupProblems = new Category("Group Problems", 0.10, Arrays.asList(CategoryTests.groupProblemItems), 1);
-
-    private static final Category onlineHW = new Category("Online HW", 0.075, Arrays.asList(CategoryTests.onlineHWItems), 1);
-
-    private static final Category writtenHW = new Category("Written HW", 0.075, Arrays.asList(CategoryTests.writtenHWItems), 1);
-
-    private static final Category quizzes = new Category("Quizzes", 0.10, Arrays.asList(CategoryTests.quizItems), 1);
-
-    private static final Category prelabs = new Category("Prelabs", 0.02, Arrays.asList(CategoryTests.prelabItems), 1);
-
-    private static final Category labs = new Category("Labs", 0.08, Arrays.asList(CategoryTests.labItems), 2);
-
-    private static final Category exams = new Category("Exams", 0.45, Arrays.asList(CategoryTests.examItems), 0);
-
-    private static final Category[] phys142Categories = {
-            CourseTests.lectures,
-            CourseTests.groupProblems,
-            CourseTests.onlineHW,
-            CourseTests.writtenHW,
-            CourseTests.quizzes,
-            CourseTests.prelabs,
-            CourseTests.labs,
-            CourseTests.exams
-    };
-
     private static Course course;
-
-    /* --------------------------------------------------Methods----------------------------------------------------- */
-    private static Course createPhys142() {
-        try {
-            return new Course("PHYS 142", List.of(CourseTests.phys142Categories));
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     /* --------------------------------------------------SetUp------------------------------------------------------- */
     @BeforeEach
-    protected void setUp() { CourseTests.course = new Course(); }
+    protected void setUp() { course = new Course(); }
 
     /* ---------------------------------------------Constructor Tests------------------------------------------------ */
     @Test
     protected void constructors__defaultConstructor() {
-        assertDoesNotThrow(() -> CourseTests.course = new Course());
-        assertEquals("", CourseTests.course.getName());
-        assertEquals(0, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertDoesNotThrow(() -> course = new Course());
+        assertEquals("", course.getName());
+        assertEquals(0, course.countCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     @Test
     protected void constructors__nameConstructor__nonNullName() {
-        assertDoesNotThrow(() -> CourseTests.course = new Course("Course"));
-        assertEquals("Course", CourseTests.course.getName());
-        assertEquals(0, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertDoesNotThrow(() -> course = new Course("Course"));
+        assertEquals("Course", course.getName());
+        assertEquals(0, course.countCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     @Test
     protected void constructors__nameConstructor__nullName() {
-        assertDoesNotThrow(() -> CourseTests.course = new Course(null));
-        assertEquals("", CourseTests.course.getName());
-        assertEquals(0, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
-    }
-
-    @Test
-    protected void constructors__nameAndCategoriesConstructor__phys142() {
-        assertDoesNotThrow(() -> CourseTests.course = CourseTests.createPhys142());
-        assertEquals("PHYS 142", CourseTests.course.getName());
-        assertEquals(8, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertDoesNotThrow(() -> course = new Course(null));
+        assertEquals("", course.getName());
+        assertEquals(0, course.countCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     @Test
     protected void constructors__nameAndCategoriesConstructor__nullName() {
-        assertDoesNotThrow(() -> CourseTests.course = new Course(null, List.of(CourseTests.phys142Categories)));
-        assertEquals("", CourseTests.course.getName());
-        assertEquals(8, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertDoesNotThrow(() -> course = new Course(null, List.of(PHYS142.categories)));
+        assertEquals("", course.getName());
+        assertEquals(8, course.countCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     @Test
     protected void constructors__nameAndCategoriesConstructor__nonNullName__nullCategories() {
-        assertThrows(NullPointerException.class, () -> CourseTests.course = new Course("Course", null));
+        assertThrows(NullPointerException.class, () -> course = new Course("Course", null));
     }
 
     /* -----------------------------------------------Setter Tests--------------------------------------------------- */
     @Test
     protected void setters__setName__nullName() {
-        CourseTests.course.setName(null);
-        assertEquals("", CourseTests.course.getName());
+        course.setName(null);
+        assertEquals("", course.getName());
     }
 
     @Test
     protected void setters__setName__nonNullName() {
-        CourseTests.course.setName("Course");
-        assertEquals("Course", CourseTests.course.getName());
+        course.setName("Course");
+        assertEquals("Course", course.getName());
     }
 
     @Test
     protected void setters__setCategories__nullCategories() {
-        assertThrows(NullPointerException.class, () -> CourseTests.course.setCategories(null));
+        assertThrows(NullPointerException.class, () -> course.setCategories(null));
     }
 
     @Test
     protected void setters__setCategories__phys142() {
-        assertDoesNotThrow(() -> CourseTests.course.setCategories(List.of(CourseTests.phys142Categories)));
-        assertEquals(8, CourseTests.course.countCategories());
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertDoesNotThrow(() -> course.setCategories(List.of(PHYS142.categories)));
+        assertEquals(8, course.countCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     /* -----------------------------------------------Getter Tests--------------------------------------------------- */
     @Test
     protected void getters__getName() {
-        CourseTests.course.setName("Course");
-        assertEquals("Course", CourseTests.course.getName());
+        assertDoesNotThrow(() -> course.setName("Course"));
+        assertEquals("Course", course.getName());
     }
 
     @Test
-    protected void getters__getCategory() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
-
-        assertEquals(CourseTests.phys142Categories[0], CourseTests.course.getCategory(CourseTests.phys142Categories[0].getName()));
-        assertEquals(CourseTests.phys142Categories[1], CourseTests.course.getCategory(CourseTests.phys142Categories[1].getName()));
-        assertEquals(CourseTests.phys142Categories[2], CourseTests.course.getCategory(CourseTests.phys142Categories[2].getName()));
-        assertEquals(CourseTests.phys142Categories[3], CourseTests.course.getCategory(CourseTests.phys142Categories[3].getName()));
-        assertEquals(CourseTests.phys142Categories[4], CourseTests.course.getCategory(CourseTests.phys142Categories[4].getName()));
-        assertEquals(CourseTests.phys142Categories[5], CourseTests.course.getCategory(CourseTests.phys142Categories[5].getName()));
-        assertEquals(CourseTests.phys142Categories[6], CourseTests.course.getCategory(CourseTests.phys142Categories[6].getName()));
-        assertEquals(CourseTests.phys142Categories[7], CourseTests.course.getCategory(CourseTests.phys142Categories[7].getName()));
+    protected void getters__getCategory__phys142() {
+        assertEquals(PHYS142.categories[0], PHYS142.course.getCategory(PHYS142.categories[0].getName()));
+        assertEquals(PHYS142.categories[1], PHYS142.course.getCategory(PHYS142.categories[1].getName()));
+        assertEquals(PHYS142.categories[2], PHYS142.course.getCategory(PHYS142.categories[2].getName()));
+        assertEquals(PHYS142.categories[3], PHYS142.course.getCategory(PHYS142.categories[3].getName()));
+        assertEquals(PHYS142.categories[4], PHYS142.course.getCategory(PHYS142.categories[4].getName()));
+        assertEquals(PHYS142.categories[5], PHYS142.course.getCategory(PHYS142.categories[5].getName()));
+        assertEquals(PHYS142.categories[6], PHYS142.course.getCategory(PHYS142.categories[6].getName()));
+        assertEquals(PHYS142.categories[7], PHYS142.course.getCategory(PHYS142.categories[7].getName()));
     }
 
     /* -----------------------------------------------Method Tests--------------------------------------------------- */
     @Test
     protected void methods__toString() {
-        CourseTests.course.setName("Course");
-        assertEquals("Course", CourseTests.course.toString());
+        course.setName("Course");
+        assertEquals("Course", course.toString());
     }
 
     @Test
     protected void methods__equals__trueCase() {
-        Course instance1 = CourseTests.createPhys142();
-        Course instance2 = CourseTests.createPhys142();
+        Course instance1 = new Course();
+        Course instance2 = new Course();
 
         assertNotNull(instance1);
         assertNotNull(instance2);
@@ -175,130 +130,130 @@ public class CourseTests {
 
     @Test
     protected void methods__addCategory__null() {
-        assertThrows(NullPointerException.class, () -> CourseTests.course.addCategory(null));
+        assertThrows(NullPointerException.class, () -> course.addCategory(null));
     }
 
     @Test
     protected void methods__addCategory__phys142() {
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[0]));
-        assertEquals(CourseTests.phys142Categories[0], CourseTests.course.getCategory(CourseTests.phys142Categories[0].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[0]));
+        assertEquals(PHYS142.categories[0], course.getCategory(PHYS142.categories[0].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[1]));
-        assertEquals(CourseTests.phys142Categories[1], CourseTests.course.getCategory(CourseTests.phys142Categories[1].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[1]));
+        assertEquals(PHYS142.categories[1], course.getCategory(PHYS142.categories[1].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[2]));
-        assertEquals(CourseTests.phys142Categories[2], CourseTests.course.getCategory(CourseTests.phys142Categories[2].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[2]));
+        assertEquals(PHYS142.categories[2], course.getCategory(PHYS142.categories[2].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[3]));
-        assertEquals(CourseTests.phys142Categories[3], CourseTests.course.getCategory(CourseTests.phys142Categories[3].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[3]));
+        assertEquals(PHYS142.categories[3], course.getCategory(PHYS142.categories[3].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[4]));
-        assertEquals(CourseTests.phys142Categories[4], CourseTests.course.getCategory(CourseTests.phys142Categories[4].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[4]));
+        assertEquals(PHYS142.categories[4], course.getCategory(PHYS142.categories[4].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[5]));
-        assertEquals(CourseTests.phys142Categories[5], CourseTests.course.getCategory(CourseTests.phys142Categories[5].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[5]));
+        assertEquals(PHYS142.categories[5], course.getCategory(PHYS142.categories[5].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[6]));
-        assertEquals(CourseTests.phys142Categories[6], CourseTests.course.getCategory(CourseTests.phys142Categories[6].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[6]));
+        assertEquals(PHYS142.categories[6], course.getCategory(PHYS142.categories[6].getName()));
 
-        assertDoesNotThrow(() -> CourseTests.course.addCategory(CourseTests.phys142Categories[7]));
-        assertEquals(CourseTests.phys142Categories[7], CourseTests.course.getCategory(CourseTests.phys142Categories[7].getName()));
+        assertDoesNotThrow(() -> course.addCategory(PHYS142.categories[7]));
+        assertEquals(PHYS142.categories[7], course.getCategory(PHYS142.categories[7].getName()));
 
     }
 
     @Test
-    protected void methods__removeCategory__categoryOverload__validCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__removeCategory__categoryOverload__validCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
-            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
-            assertTrue(CourseTests.course.removeCategory(CourseTests.phys142Categories[i]));
-            assertFalse(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        for (int i = 0; i < PHYS142.categories.length; ++i) {
+            assertTrue(course.containsCategory(PHYS142.categories[i]));
+            assertTrue(course.removeCategory(PHYS142.categories[i]));
+            assertFalse(course.containsCategory(PHYS142.categories[i]));
         }
     }
 
     @Test
-    protected void methods__removeCategory__categoryOverload__invalidCategories() {
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[0]));
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[1]));
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[2]));
+    protected void methods__removeCategory__categoryOverload__invalidCategories__phys142() {
+        assertFalse(course.removeCategory(PHYS142.categories[0]));
+        assertFalse(course.removeCategory(PHYS142.categories[1]));
+        assertFalse(course.removeCategory(PHYS142.categories[2]));
     }
 
     @Test
-    protected void methods__removeCategory__stringOverload__validCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__removeCategory__stringOverload__validCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
-            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
-            assertTrue(CourseTests.course.removeCategory(CourseTests.phys142Categories[i].getName()));
-            assertFalse(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        for (int i = 0; i < PHYS142.categories.length; ++i) {
+            assertTrue(course.containsCategory(PHYS142.categories[i]));
+            assertTrue(course.removeCategory(PHYS142.categories[i].getName()));
+            assertFalse(course.containsCategory(PHYS142.categories[i]));
         }
     }
 
     @Test
-    protected void methods__removeCategory__stringOverload__invalidCategories() {
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[0].getName()));
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[1].getName()));
-        assertFalse(CourseTests.course.removeCategory(CourseTests.phys142Categories[2].getName()));
+    protected void methods__removeCategory__stringOverload__invalidCategories__phys142() {
+        assertFalse(course.removeCategory(PHYS142.categories[0].getName()));
+        assertFalse(course.removeCategory(PHYS142.categories[1].getName()));
+        assertFalse(course.removeCategory(PHYS142.categories[2].getName()));
     }
 
     @Test
-    protected void methods__containsCategory__categoryOverload__validCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__containsCategory__categoryOverload__validCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
-            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i]));
+        for (int i = 0; i < PHYS142.categories.length; ++i) {
+            assertTrue(CourseTests.course.containsCategory(PHYS142.categories[i]));
         }
     }
 
     @Test
     protected void methods__containsCategory__categoryOverload__invalidCategories() {
-        assertFalse(CourseTests.course.containsCategory(new Category("Some Category")));
-        assertFalse(CourseTests.course.containsCategory(new Category("Some Other Category")));
-        assertFalse(CourseTests.course.containsCategory(new Category(null)));
+        assertFalse(course.containsCategory(new Category("Some Category")));
+        assertFalse(course.containsCategory(new Category("Some Other Category")));
+        assertFalse(course.containsCategory(new Category(null)));
     }
 
     @Test
-    protected void methods__containsCategory__stringOverload__validCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__containsCategory__stringOverload__validCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        for (int i = 0; i < CourseTests.phys142Categories.length; ++i) {
-            assertTrue(CourseTests.course.containsCategory(CourseTests.phys142Categories[i].getName()));
+        for (int i = 0; i < PHYS142.categories.length; ++i) {
+            assertTrue(course.containsCategory(PHYS142.categories[i].getName()));
         }
     }
 
     @Test
     protected void methods__containsCategory__stringOverload__invalidCategories() {
-        assertFalse(CourseTests.course.containsCategory("Some Category"));
-        assertFalse(CourseTests.course.containsCategory("Some Other Category"));
+        assertFalse(course.containsCategory("Some Category"));
+        assertFalse(course.containsCategory("Some Other Category"));
     }
 
     @Test
-    protected void methods__countCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__countCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        assertEquals(CourseTests.phys142Categories.length, CourseTests.course.countCategories());
+        assertEquals(PHYS142.categories.length, course.countCategories());
     }
 
     @Test
-    protected void methods__countEmptyCategories() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+    protected void methods__countEmptyCategories__phys142() {
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        assertEquals(0, CourseTests.course.countEmptyCategories());
+        assertEquals(0, course.countEmptyCategories());
     }
 
     @Test
     protected void methods__calculateGrade__phys142() {
-        CourseTests.course = CourseTests.createPhys142();
-        assertNotNull(CourseTests.course);
+        course = new Course("PHYS 142", Arrays.asList(PHYS142.categories));
+        assertNotNull(course);
 
-        assertEquals(54.81308273670773, CourseTests.course.calculateGrade() * 100, CourseTests.EPSILON);
+        assertEquals(54.81308273670773, course.calculateGrade() * 100, EPSILON);
     }
 
 }
