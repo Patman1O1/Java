@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+  <type>turing</type>
+  <automaton>
+    <state id="0" name="qStart">
+      <initial/>
+    </state>
+    <state id="1" name="qReadB"/>
+    <state id="2" name="qReadC"/>
+    <state id="3" name="qGoLeftForMarking"/>
+    <state id="4" name="qBackToLeft"/>
+    <state id="5" name="qFindAorB"/>
+    <state id="6" name="qA_firstC"/>
+    <state id="7" name="qA_secondC"/>
+    <state id="8" name="qB_oneC"/>
+    <state id="9" name="qCheckEnd"/>
+    <state id="10" name="qAccept">
+      <final/>
+    </state>
+    <transition><from>0</from><to>0</to><read>a</read><write>a</write><move>R</move></transition>
+    <transition><from>0</from><to>1</to><read>b</read><write>b</write><move>R</move></transition>
+    <transition><from>0</from><to>2</to><read>c</read><write>c</write><move>R</move></transition>
+    <transition><from>0</from><to>3</to><read></read><write></write><move>L</move></transition>
+    <transition><from>1</from><to>1</to><read>b</read><write>b</write><move>R</move></transition>
+    <transition><from>1</from><to>2</to><read>c</read><write>c</write><move>R</move></transition>
+    <transition><from>1</from><to>3</to><read></read><write></write><move>L</move></transition>
+    <transition><from>2</from><to>2</to><read>c</read><write>c</write><move>R</move></transition>
+    <transition><from>2</from><to>3</to><read></read><write></write><move>L</move></transition>
+    <transition>
+      <from>3</from><to>4</to>
+      <read>a</read><write>a</write><move>L</move>
+    </transition>
+    <transition>
+      <from>3</from><to>4</to>
+      <read>b</read><write>b</write><move>L</move>
+    </transition>
+    <transition>
+      <from>3</from><to>4</to>
+      <read>c</read><write>c</write><move>L</move>
+    </transition>
+    <transition><from>4</from><to>4</to><read>a</read><write>a</write><move>L</move></transition>
+    <transition><from>4</from><to>4</to><read>b</read><write>b</write><move>L</move></transition>
+    <transition><from>4</from><to>4</to><read>c</read><write>c</write><move>L</move></transition>
+    <transition><from>4</from><to>4</to><read>A</read><write>A</write><move>L</move></transition>
+    <transition><from>4</from><to>4</to><read>B</read><write>B</write><move>L</move></transition>
+    <transition><from>4</from><to>4</to><read>C</read><write>C</write><move>L</move></transition>
+    <transition><from>4</from><to>5</to><read></read><write></write><move>R</move></transition>
+    <transition><from>5</from><to>6</to><read>a</read><write>A</write><move>R</move></transition>
+    <transition><from>5</from><to>8</to><read>b</read><write>B</write><move>R</move></transition>
+    <transition><from>5</from><to>5</to><read>A</read><write>A</write><move>R</move></transition>
+    <transition><from>5</from><to>5</to><read>B</read><write>B</write><move>R</move></transition>
+    <transition><from>5</from><to>9</to><read>c</read><write>c</write><move>R</move></transition>
+    <transition><from>5</from><to>9</to><read>C</read><write>C</write><move>R</move></transition>
+    <transition><from>5</from><to>9</to><read></read><write></write><move>R</move></transition>
+    <transition><from>6</from><to>6</to><read>A</read><write>A</write><move>R</move></transition>
+    <transition><from>6</from><to>6</to><read>B</read><write>B</write><move>R</move></transition>
+    <transition><from>6</from><to>6</to><read>C</read><write>C</write><move>R</move></transition>
+    <transition><from>6</from><to>6</to><read>a</read><write>a</write><move>R</move></transition>
+    <transition><from>6</from><to>6</to><read>b</read><write>b</write><move>R</move></transition>
+    <transition><from>6</from><to>7</to><read>c</read><write>C</write><move>R</move></transition>
+    <transition><from>7</from><to>7</to><read>A</read><write>A</write><move>R</move></transition>
+    <transition><from>7</from><to>7</to><read>B</read><write>B</write><move>R</move></transition>
+    <transition><from>7</from><to>7</to><read>C</read><write>C</write><move>R</move></transition>
+    <transition><from>7</from><to>7</to><read>a</read><write>a</write><move>R</move></transition>
+    <transition><from>7</from><to>7</to><read>b</read><write>b</write><move>R</move></transition>
+    <transition><from>7</from><to>4</to><read>c</read><write>C</write><move>L</move></transition>
+    <transition><from>8</from><to>8</to><read>A</read><write>A</write><move>R</move></transition>
+    <transition><from>8</from><to>8</to><read>B</read><write>B</write><move>R</move></transition>
+    <transition><from>8</from><to>8</to><read>C</read><write>C</write><move>R</move></transition>
+    <transition><from>8</from><to>8</to><read>a</read><write>a</write><move>R</move></transition>
+    <transition><from>8</from><to>8</to><read>b</read><write>b</write><move>R</move></transition>
+    <transition><from>8</from><to>4</to><read>c</read><write>C</write><move>L</move></transition>
+    <transition><from>9</from><to>9</to><read>A</read><write>A</write><move>R</move></transition>
+    <transition><from>9</from><to>9</to><read>B</read><write>B</write><move>R</move></transition>
+    <transition><from>9</from><to>9</to><read>C</read><write>C</write><move>R</move></transition>
+    <transition><from>9</from><to>10</to><read></read><write></write><move>R</move></transition>
+  </automaton>
+</structure>

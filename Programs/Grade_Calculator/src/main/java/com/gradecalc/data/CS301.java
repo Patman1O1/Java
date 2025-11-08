@@ -31,7 +31,8 @@ public class CS301 {
             new Item("Lab Assignment 5", 8.00, 10.0),
             new Item("Lab Assignment 6", 9.25, 10.0),
             new Item("Lab Assignment 7", 9.00, 10.0),
-            new Item("Lab Assignment 8", 7.75, 10.0)
+            new Item("Lab Assignment 8", 7.75, 10.0),
+            new Item("Lab Assignment 8", 8.8, 10.0),
     };
 
     public static final Item[] homeworkItems = {
@@ -81,6 +82,6 @@ public class CS301 {
 
     /* -------------------------------------------------Main--------------------------------------------------------- */
     public static void main(String[] args) {
-        System.out.printf("Grade = %.5f", course.calculateGrade());
+        System.out.printf("Grade = %.5f", course.calculateGrade() * 100);
     }
 }

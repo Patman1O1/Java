@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+    <type>turing</type>
+    <automaton>
+        <state id="0" name="q0">
+            <initial/>
+        </state>
+        <state id="1" name="qZ1"/>
+        <state id="2" name="q1_1"/>
+        <state id="3" name="qZ1_1"/>
+        <state id="4" name="qZ2"/>
+        <state id="5" name="qZ2_1"/>
+        <state id="6" name="qAccept">
+            <final/>
+        </state>
+        <transition>
+            <from>0</from><to>1</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>0</from><to>2</to>
+            <read>1</read><write>1</write><move>R</move>
+        </transition>
+        <transition>
+            <from>1</from><to>4</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>1</from><to>3</to>
+            <read>1</read><write>1</write><move>R</move>
+        </transition>
+        <transition>
+            <from>2</from><to>3</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>3</from><to>5</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>4</from><to>4</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>4</from><to>5</to>
+            <read>1</read><write>1</write><move>R</move>
+        </transition>
+        <transition>
+            <from>4</from><to>6</to>
+            <read></read><write></write><move>R</move>
+        </transition>
+        <transition>
+            <from>5</from><to>5</to>
+            <read>0</read><write>0</write><move>R</move>
+        </transition>
+        <transition>
+            <from>5</from><to>6</to>
+            <read></read><write></write><move>R</move>
+        </transition>
+    </automaton>
+</structure>

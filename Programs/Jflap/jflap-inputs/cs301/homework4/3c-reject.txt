@@ -1,0 +1,5 @@
+abcc
+aabcccc
+abbccccc
+aabcccccc
+abbbccccccc
